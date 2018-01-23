@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="dashboard">
     <Header />
     <Sidebar />
     <router-link to="/user">用户管理</router-link>
@@ -20,22 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#root {
-  position: fixed;
-  top: 70px;
-  left: 200px;
-  right: 0;
-  bottom: 0;
-
-  &.active {
-    right: 50px;
-  }
+div#dashboard {
+  
 }
 </style>

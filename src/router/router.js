@@ -1,21 +1,43 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import security from '../store/security'
 import Dashboard from '@/views/Dashboard/Dashboard'
 import Login from '@/views/Login/Login'
 
 Vue.use(Router)
 
-export default new Router({
+if (window.localStorage.getItem('token')) {
+  security.commit('login', window.localStorage.getItem('token'))
+}
+
+const router = new Router({
   routes: [
     {
-      path: '/',
-      name: 'Login',
+      path: '/login',
+      name: 'login',
       component: Login
     },
     {
-      path: '/dashboard',
-      name: 'Dashboard',
+      path: '/',
+      name: 'dashboard',
       component: Dashboard
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/login') {
+    if (security.state.token) {
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

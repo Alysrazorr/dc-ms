@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view id="root"/>
   </div>
 </template>
 
@@ -11,4 +11,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 </style>
