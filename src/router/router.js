@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import security from '../store/security'
 import Dashboard from '@/views/Dashboard/Dashboard'
 import Login from '@/views/Login/Login'
+import User from '@/views/User/user'
 
 Vue.use(Router)
 
@@ -20,7 +21,14 @@ const router = new Router({
     {
       path: '/',
       name: 'dashboard',
-      component: Dashboard
+      component: Dashboard,
+      children: [
+        {
+          path: '/user',
+          name: 'user',
+          component: User
+        }
+      ]
     }
   ]
 })
@@ -31,8 +39,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next({
-        path: '/login',
-        query: { redirect: to.fullPath }
+        path: '/login'
       })
     }
   } else {

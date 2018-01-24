@@ -7,6 +7,11 @@ const state = {
   token: null
 }
 
+// const actions = {
+//   login: ({commit}, token) => {
+//   }
+// }
+
 const mutations = {
   login: (state, token) => {
     localStorage.token = token

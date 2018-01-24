@@ -1,26 +1,53 @@
 <template>
   <div id="dashboard">
-    <Header />
-    <Sidebar />
-    <router-link to="/user">用户管理</router-link>
-    <router-view id="root" class="active"/>
+    <header id="header">
+    </header>
+    <nav id="sidebar">
+      <router-link to="/user">用户管理</router-link>
+    </nav>
+    <router-view id="content"/>
   </div>
 </template>
 
 <script>
-import Header from '../../components/Header'
-import Sidebar from '../../components/Sidebar'
+import User from '../User/user'
 export default {
   name: 'Dashboard',
-  components: {
-    Header,
-    Sidebar
+  component: {
+    User
   }
 }
 </script>
 
 <style lang="scss" scoped>
-div#dashboard {
-  
+@import "../../assets/scss/global.scss";
+
+$header-height: 80px;
+$sidebar-width: 300px;
+
+header#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $header-height;
+}
+
+nav#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  background-color: $color-f;
+}
+
+#content {
+  position: fixed;
+  top: $header-height;
+  left: $sidebar-width;
+  right: 0;
+  bottom: 0;
+  background-color: $color-3;
 }
 </style>

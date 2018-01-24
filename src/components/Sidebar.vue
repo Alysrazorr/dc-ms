@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#sidebar {
+div#sidebar {
   position: fixed;
   top: 0;
   left: 0;

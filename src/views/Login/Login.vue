@@ -1,20 +1,35 @@
 <template>
-<div>
-  <div id="login-form-container">
-    <span class="section">系统登录</span>
-    <span class="section">
-      <i class="fa fa-user"></i>
-    </span>
-    <input v-model="ac"/>
-    <input v-model="pw"/>
-  </div>
-  <a href="javascript:;" @click="login">Login</a>
-  <a href="javascript:;" @click="logout">Logout</a>
-</div>
+  <table>
+    <tbody>
+      <tr>
+        <td id="logo">
+          <strong>数据中心</strong>
+          <br />
+          <small>DataCenter</small>
+        </td>
+        <td id="form">
+          <div id="login-form-container">
+            <span class="section">系统登录</span>
+            <br />
+            <span class="section input">
+              <i class="fa fa-user"></i>
+              <input id="ac" v-model="ac" @keydown.enter="login" placeholder="账号"/>
+            </span>
+            <br />
+            <span class="section input">
+              <i class="fa fa-lock"></i>
+              <input id="pw" v-model="pw" @keydown.enter="login" placeholder="密码"/>
+            </span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
 import security from '../../store/security'
+import router from '../../router/router'
 export default {
   name: 'Login',
   data: function() {
@@ -32,10 +47,8 @@ export default {
         }
       }).then(function(resp) {
         security.commit('login', resp.data.data)
+        router.push('/')
       })
-    },
-    logout: function() {
-      this.$http.get('/security/logout').then()
     }
   }
 }
@@ -43,22 +56,66 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/scss/global.scss";
+
+$section-size: 50px;
+
+table {
+  width: 100%;
+  height: 100%;
+}
+td#logo {
+  width: 55%;
+  text-align: right;
+  padding-right: 50px;
+  color: $color-orange;
+  font-size: 70px;
+}
+td#form {
+  text-align: left;
+}
 div#login-form-container {
-  height: 400px;
-  width: 600px;
-  margin: 0 auto;
-  margin-top: 100px;
-  background-color: $color-3;
-  box-shadow: 0 0 0 4px rgba($color-0, 0.2);
-  padding: 20px;
+  width: 400px;
+  border-left: solid 2px $color-3;
+  padding: 60px 20px;
+  padding-bottom: 100px;
 
   &>span.section {
+    position: relative;
     display: block;
-    height: 80px;
-    line-height: 80px;
+    height: $section-size;
+    line-height: $section-size;
     font-size: 30px;
     color: $color-a;
     text-shadow: 2px 2px $color-0;
+
+    &.input {
+      background-color: $color-2;
+      border-bottom: solid 1px $color-3;
+      &>i.fa {
+        display: block;
+        position: absolute;
+        left: 0;
+
+        width: $section-size;
+        height: $section-size;
+        line-height: $section-size;
+        text-align: center;
+      }
+      &>input {
+        box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        border: 0;
+        background-color: transparent;
+        padding-left: $section-size + 20px;
+        width: 100%;
+        height: $section-size;
+        line-height: $section-size;
+        font-size: $section-size / 3;
+        color: $color-f;
+        outline: none;
+      }
+    }
   }
 }
 </style>
