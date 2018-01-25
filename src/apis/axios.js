@@ -1,7 +1,7 @@
 import axios from 'axios'
 import security from '../store/security'
 
-axios.defaults.baseURL = 'http://192.168.199.233:9080/dc-ms'
+axios.defaults.baseURL = '/apis'
 axios.interceptors.request.use(
   config => {
     if (security.state.token) {
