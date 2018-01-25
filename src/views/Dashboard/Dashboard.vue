@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import User from '../User/user'
+import User from '../Auth/User'
 export default {
   name: 'Dashboard',
   component: {

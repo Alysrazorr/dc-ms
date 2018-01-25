@@ -28,8 +28,10 @@
 </template>
 
 <script>
-import security from '../../store/security'
 import router from '../../router/router'
+import authApi from '../../api/auth/auth'
+import authStore from '../../store/auth/auth'
+
 export default {
   name: 'Login',
   data: function() {
@@ -40,13 +42,13 @@ export default {
   },
   methods: {
     login: function() {
-      this.$http.get('/security/login', {
+      this.$http.get(authApi.login, {
         params: {
           ac: this.$data.ac,
           pw: this.$data.pw
         }
       }).then(function(resp) {
-        security.commit('login', resp.data.data)
+        authStore.commit('login', resp.data.data)
         router.push('/')
       })
     }

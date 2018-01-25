@@ -6,8 +6,7 @@
 </template>
 
 <script>
-import menu from '../../store/menu'
-import userApi from '../../apis/user'
+import userApi from '../../api/auth/user'
 export default {
   name: 'User',
   methods: {
@@ -17,14 +16,10 @@ export default {
           id: '123'
         }
       }).then(function(resp) {
-        console.log(resp.data)
-        menu.commit('init', resp.data.data)
       })
     },
     search2: function() {
       this.$http.post(userApi.getMenus).then(function(resp) {
-        console.log(resp.data)
-        menu.commit('init', resp.data.data)
       })
     }
   }

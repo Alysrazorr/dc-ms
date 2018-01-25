@@ -1,31 +1,33 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import security from '../store/security'
+import authStore from '../store/auth/auth'
 import Dashboard from '@/views/Dashboard/Dashboard'
-import Login from '@/views/Login/Login'
-import User from '@/views/User/user'
+import Login from '@/views/Auth/Login'
+import User from '@/views/Auth/User'
+import Desktop from '@/views/Desktop/Desktop'
 
 Vue.use(Router)
 
 if (window.localStorage.getItem('token')) {
-  security.commit('login', window.localStorage.getItem('token'))
+  authStore.commit('login', window.localStorage.getItem('token'))
 }
 
 const router = new Router({
   routes: [
     {
       path: '/login',
-      name: 'login',
       component: Login
     },
     {
       path: '/',
-      name: 'dashboard',
       component: Dashboard,
       children: [
         {
+          path: '/',
+          component: Desktop
+        },
+        {
           path: '/user',
-          name: 'user',
           component: User
         }
       ]
@@ -35,7 +37,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.path !== '/login') {
-    if (security.state.token) {
+    if (authStore.state.token) {
       next()
     } else {
       next({

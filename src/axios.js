@@ -1,11 +1,11 @@
 import axios from 'axios'
-import security from '../store/security'
+import authStore from './store/auth/auth'
 
-axios.defaults.baseURL = '/apis'
+axios.defaults.baseURL = '/api'
 axios.interceptors.request.use(
   config => {
-    if (security.state.token) {
-      config.headers.Token = `${security.state.token}`
+    if (authStore.state.token) {
+      config.headers.Token = `${authStore.state.token}`
     }
     return config
   },
