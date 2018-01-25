@@ -1,4 +1,4 @@
-const base = '/security'
+const base = '/auth'
 
 const api = {
   login: base + '/login',

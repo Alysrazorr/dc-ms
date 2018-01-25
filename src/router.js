@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import authStore from '../store/auth/auth'
+import authStore from './store/auth/auth'
 import Dashboard from '@/views/Dashboard/Dashboard'
 import Login from '@/views/Auth/Login'
 import User from '@/views/Auth/User'

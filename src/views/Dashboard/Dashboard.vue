@@ -1,8 +1,10 @@
 <template>
   <div id="dashboard">
     <header id="header">
+      <a id="brand"><img src=""/></a>
     </header>
     <nav id="sidebar">
+      <router-link to="/">工作台</router-link>
       <router-link to="/user">用户管理</router-link>
     </nav>
     <router-view id="content"/>
@@ -11,6 +13,7 @@
 
 <script>
 import User from '../Auth/User'
+
 export default {
   name: 'Dashboard',
   component: {
@@ -32,17 +35,15 @@ header#header {
   right: 0;
   height: $header-height;
 }
-
 nav#sidebar {
   position: fixed;
-  top: 0;
+  top: $header-height;
   left: 0;
   bottom: 0;
   width: 300px;
   background-color: $color-f;
 }
-
-#content {
+div#content {
   position: fixed;
   top: $header-height;
   left: $sidebar-width;

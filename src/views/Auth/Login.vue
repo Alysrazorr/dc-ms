@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import router from '../../router/router'
+import router from '../../router'
 import authApi from '../../api/auth/auth'
 import authStore from '../../store/auth/auth'
 
