@@ -12,13 +12,17 @@ export default {
   name: 'User',
   methods: {
     search: function() {
-      this.$http.get(userApi.getMenu).then(function(resp) {
+      this.$http.get(userApi.getMenus, {
+        param: {
+          id: '123'
+        }
+      }).then(function(resp) {
         console.log(resp.data)
         menu.commit('init', resp.data.data)
       })
     },
     search2: function() {
-      this.$http.post(userApi.getMenu).then(function(resp) {
+      this.$http.post(userApi.getMenus).then(function(resp) {
         console.log(resp.data)
         menu.commit('init', resp.data.data)
       })
