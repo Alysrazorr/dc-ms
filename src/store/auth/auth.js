@@ -14,11 +14,11 @@ const state = {
 
 const mutations = {
   login: (state, token) => {
-    localStorage.token = token
+    window.sessionStorage.token = token
     state.token = token
   },
   logout: (state) => {
-    localStorage.removeItem('token')
+    window.sessionStorage.removeItem('token')
     state.token = null
   }
 }

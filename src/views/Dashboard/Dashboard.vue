@@ -1,7 +1,7 @@
 <template>
   <div id="dashboard">
     <header id="header">
-      <a id="brand"><img src=""/></a>
+      <router-link to="/" id="brand"><img src="../../assets/logo.png"/></router-link>
     </header>
     <nav id="sidebar">
       <router-link to="/">工作台</router-link>
@@ -28,6 +28,10 @@ export default {
 $header-height: 80px;
 $sidebar-width: 300px;
 
+a#brand>img {
+  height: $header-height;
+  width: $header-height;
+}
 header#header {
   position: fixed;
   top: 0;

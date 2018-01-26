@@ -8,8 +8,8 @@ import Desktop from '@/views/Desktop/Desktop'
 
 Vue.use(Router)
 
-if (window.localStorage.getItem('token')) {
-  authStore.commit('login', window.localStorage.getItem('token'))
+if (window.sessionStorage.getItem('token')) {
+  authStore.commit('login', window.sessionStorage.getItem('token'))
 }
 
 const router = new Router({

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import authStore from './store/auth/auth'
+import router from './router'
 
 axios.defaults.baseURL = '/api'
 axios.interceptors.request.use(
@@ -11,6 +12,20 @@ axios.interceptors.request.use(
   },
   err => {
     return Promise.reject(err)
+  }
+)
+
+axios.interceptors.response.use(
+  response => {
+    return response
+  },
+  err => {
+    switch (err.response.status) {
+      case 401:
+        authStore.commit('logout')
+        router.push('/')
+        return Promise.reject(err)
+    }
   }
 )
 
