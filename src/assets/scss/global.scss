@@ -102,6 +102,13 @@ $transition-speed: 300ms;
             transform: rotate($angle);
 }
 
+@mixin transition($time) {
+    -webkit-transition: $time ease-in-out;
+    -moz-transition: $time ease-in-out;
+    -o-transition: $time ease-in-out;
+    transition: $time ease-in-out;
+}
+
 .rotate-90 {
 	@include rotate(90deg);
 }
@@ -124,6 +131,14 @@ html, body {
     background-color: $color-bg;
 }
 
+a {
+    color: rgb(114,114,118);
+    text-decoration: none;
+    &:hover, &:active {
+        color: rgb(91,92,113);
+    }
+}
+
 *.dui {
 	@include zero;
 	@include border-box;
@@ -135,3 +150,4 @@ div.float-container {
         float: left;
     }
 }
+

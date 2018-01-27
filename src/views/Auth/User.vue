@@ -7,8 +7,9 @@
 
 <script>
 import userApi from '../../api/auth/user'
+
 export default {
-  name: 'User',
+  name: 'user',
   methods: {
     search: function() {
       this.$http.get(userApi.getMenus, {

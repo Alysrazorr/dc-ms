@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import authStore from './store/auth/auth'
-import Dashboard from '@/views/Dashboard/Dashboard'
-import Login from '@/views/Auth/Login'
-import User from '@/views/Auth/User'
-import Desktop from '@/views/Desktop/Desktop'
+import authStore from '@/store/auth/auth'
+
+import Dashboard from '@/views/dashboard/dashboard'
+import Login from '@/views/auth/login'
+import User from '@/views/auth/user'
+import Desktop from '@/views/desktop/desktop'
 
 Vue.use(Router)
 

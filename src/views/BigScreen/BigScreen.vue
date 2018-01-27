@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: 'BigScreen',
+  name: 'bigScreen',
   methods: {
   }
 }

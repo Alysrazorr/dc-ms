@@ -33,7 +33,7 @@ import authApi from '../../api/auth/auth'
 import authStore from '../../store/auth/auth'
 
 export default {
-  name: 'Login',
+  name: 'login',
   data: function() {
     return {
       ac: null,
