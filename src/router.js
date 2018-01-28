@@ -46,7 +46,13 @@ router.beforeEach((to, from, next) => {
       })
     }
   } else {
-    next()
+    if (authStore.state.token) {
+      next({
+        path: '/'
+      })
+    } else {
+      next()
+    }
   }
 })
 
