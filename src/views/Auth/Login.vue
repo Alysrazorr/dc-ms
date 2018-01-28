@@ -64,6 +64,7 @@ $section-size: 50px;
 table {
   width: 100%;
   height: 100%;
+  background-color: $color-steel;
 }
 td#logo {
   width: 55%;
@@ -77,7 +78,7 @@ td#form {
 }
 div#login-form-container {
   width: 400px;
-  border-left: solid 2px $color-3;
+  border-left: solid 2px lighten($color-steel, 10%);
   padding: 60px 20px;
   padding-bottom: 100px;
 
@@ -86,13 +87,15 @@ div#login-form-container {
     display: block;
     height: $section-size;
     line-height: $section-size;
-    font-size: 30px;
-    color: $color-a;
+    font: {
+      size: 40px;
+      family: 'simhei';
+    }
+    color: lighten($color-steel, 60%);
     text-shadow: 2px 2px $color-0;
 
     &.input {
-      background-color: $color-2;
-      border-bottom: solid 1px $color-3;
+      background-color: darken($color-steel, 3%);
       &>i.fa {
         display: block;
         position: absolute;

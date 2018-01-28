@@ -11,5 +11,6 @@ export default {
 </script>
 
 <style scoped>
+@import "../../assets/scss/global.scss";
 
 </style>
