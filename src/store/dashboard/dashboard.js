@@ -14,14 +14,14 @@ const state = {
         {
           name: '数据监控大屏',
           id: 'menu11',
-          icon: 'fas fa-chart-line',
+          icon: '../../static/icon/11.png',
           url: '/monitor/report',
           desc: '平台整体运行状况'
         },
         {
           name: '交换节点监控',
           id: 'menu12',
-          icon: 'fab fa-codepen',
+          icon: '../../static/icon/12.png',
           url: '/monitor/exchangeNode',
           desc: ''
         },

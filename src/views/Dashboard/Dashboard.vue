@@ -23,7 +23,7 @@
           <div class="menu-item" v-for="item of menu.children" :key="item.id">
             <div class="menu-item-name">{{item.name}}</div>
             <div class="menu-item-desc">{{item.desc}}</div>
-            <i :class="item.icon"></i>
+            <div class="menu-item-icon"><img :src="item.icon"/></div>
           </div>
         </div>
       </div>
@@ -133,7 +133,7 @@ nav#navs {
     display: block;
   }
 
-  &>img {    
+  &>img {
     filter: grayscale(60%);
     position: absolute;
     right: 0;
@@ -205,14 +205,19 @@ nav#navs {
           line-height: 15px;
           font-size: 13px;
         }
-        &>i {
+        &>div.menu-item-icon {
           position: absolute;
           top: 0;
-          right: 20px;
-          display: block;
+          right: 0;
           height: 70px;
-          line-height: 70px;
-          font-size: 50px;
+          width: 70px;
+          overflow: hidden;
+          &>img {
+            filter: drop-shadow($color-steel-font 100px 0);
+            position: absolute;
+            top: 3px;
+            left: -100px;
+          }
         }
       }
     }
