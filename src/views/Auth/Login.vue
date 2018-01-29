@@ -12,12 +12,12 @@
             <span class="section">系统登录</span>
             <br />
             <span class="section input">
-              <i class="fa fa-user"></i>
+              <img src="@/assets/images/lock.png">
               <input id="ac" v-model="ac" @keydown.enter="login" placeholder="账号"/>
             </span>
             <br />
             <span class="section input">
-              <i class="fa fa-lock"></i>
+              <img src="@/assets/images/user.png">
               <input id="pw" v-model="pw" @keydown.enter="login" placeholder="密码"/>
             </span>
           </div>
@@ -72,6 +72,7 @@ td#logo {
   padding-right: 50px;
   color: $color-orange;
   font-size: 70px;
+  text-shadow: 2px 2px 4px $color-0;
 }
 td#form {
   text-align: left;
@@ -96,15 +97,15 @@ div#login-form-container {
 
     &.input {
       background-color: darken($color-steel, 3%);
-      &>i.fa {
+      &>img {
         display: block;
         position: absolute;
         left: 0;
 
-        width: $section-size;
-        height: $section-size;
-        line-height: $section-size;
-        text-align: center;
+        width: 32px;
+        height: 32px;
+        margin-top: 8px;
+        margin-left: 9px;
       }
       &>input {
         box-sizing: border-box;
@@ -112,7 +113,7 @@ div#login-form-container {
         left: 0;
         border: 0;
         background-color: transparent;
-        padding-left: $section-size + 20px;
+        padding-left: $section-size;
         width: 100%;
         height: $section-size;
         line-height: $section-size;
