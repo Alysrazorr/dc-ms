@@ -251,14 +251,6 @@ nav#navs {
           height: 70px;
           width: 70px;
           overflow: hidden;
-          &>img {
-            filter: drop-shadow($color-steel-font 100px 0);
-            position: absolute;
-            top: 11px;
-            left: -100px;
-            width: 48px;
-            height: 48px;
-          }
         }
       }
     }

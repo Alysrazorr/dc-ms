@@ -12,12 +12,12 @@
             <span class="section">系统登录</span>
             <br />
             <span class="section input">
-              <img src="@/assets/images/lock.png">
+              <img src="@/assets/images/user.png">
               <input id="ac" v-model="ac" @keydown.enter="login" placeholder="账号"/>
             </span>
             <br />
             <span class="section input">
-              <img src="@/assets/images/user.png">
+              <img src="@/assets/images/lock.png">
               <input id="pw" v-model="pw" @keydown.enter="login" placeholder="密码"/>
             </span>
           </div>
