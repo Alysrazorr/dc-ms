@@ -1,40 +1,44 @@
 <template>
   <div id="dashboard">
     <header id="header">
-      <router-link class="brand" to="/"><img class="brand" src="../../assets/logo.png" @click="toggleMenu"/></router-link>
+      <router-link class="brand" to="/"><img class="brand" src="@/assets/logo.png" @click="activeMenu"/></router-link>
       <div class="title">
         <div class="main">智慧南沙公共信息资源服务平台</div>
         <div class="sub">Nansha Public Information Resources Service Platform</div>
       </div>
-      <nav id="helps">
-        <div class="search"></div>
-        <div class="docs"></div>
-        <div class="user"></div>
+      <nav id="help">
+        <div id="search">
+          <img src="/static/icon/search.png">
+        </div>
+        <div id="message">
+          <img src="/static/icon/tones.png">
+        </div>
+        <div id="config">
+          <img src="/static/icon/user.png">
+        </div>
       </nav>
     </header>
-    <nav id="navs" :class="[{toggled: toggled()}]">
+    <nav id="navs" :class="[{active: isMenuActive()}]">
       <div class="menu-tabs">
-        <div class="menu-tab" :class="[{active: isMenuTabActive(menu.id)}]" v-for="menu of menus" :key="menu.id" @click="activeMenuTab(menu.id)">
-          {{menu.name}}
-        </div>
+        <div class="menu-tab" :class="[{active: isMenuTabActive(menu.id)}]" v-for="menu of menus" :key="menu.id" @click="activeMenuTab(menu.id)">{{menu.name}}</div>
       </div>
       <div class="menu-contents">
         <div class="menu-content" :class="[{active: isMenuTabActive(menu.id)}]" v-for="menu of menus" :key="menu.id">
-          <div class="menu-item" v-for="item of menu.children" :key="item.id">
+          <div class="menu-item" :class="[{active: isMenuItemActive(item.id)}]" v-for="item of menu.children" :key="item.id" @click="activeMenuItem(item.id)">
             <div class="menu-item-name">{{item.name}}</div>
             <div class="menu-item-desc">{{item.desc}}</div>
-            <div class="menu-item-icon"><img :src="item.icon"/></div>
           </div>
         </div>
       </div>
-      <img src="../../assets/logo.png">
+      <img src="@/assets/logo.png">
     </nav>
     <router-view id="content"/>
   </div>
 </template>
 
 <script>
-import dashboardStore from '../../store/dashboard/dashboard'
+import dashboardStore from '@/store/dashboard/dashboard'
+import hCard from '@/components/hCard'
 
 export default {
   name: 'dashboard',
@@ -44,18 +48,28 @@ export default {
     }
   },
   methods: {
-    toggled: function() {
-      return dashboardStore.state.toggled
-    },
-    toggleMenu: function() {
-      dashboardStore.commit('toggleMenu')
+    activeMenu: function() {
+      dashboardStore.commit('activeMenu')
     },
     activeMenuTab: function(id) {
       dashboardStore.commit('activeMenuTab', id)
     },
+    activeMenuItem: function(id) {
+      this.activeMenu()
+      dashboardStore.commit('activeMenuItem', id)
+    },
+    isMenuActive: function() {
+      return dashboardStore.state.isMenuActive
+    },
     isMenuTabActive: function(id) {
       return dashboardStore.state.activeMenuTabId === id
+    },
+    isMenuItemActive: function(id) {
+      return dashboardStore.state.activeMenuItemId === id
     }
+  },
+  components: {
+    hCard
   }
 }
 </script>
@@ -74,10 +88,10 @@ header#header {
   left: 0;
   right: 0;
   height: $header-height;
-  box-shadow: 0 1px 20px rgba($color-0, 0.5);
+  box-shadow: 0 0 20px rgba($color-0, 0.5);
   z-index: 200;
-  min-width: 1280px;
-  background-color: $color-steel;
+  min-width: 1440px;
+  background: linear-gradient(to top right, darken($color-steel, 5%), lighten($color-steel, 5%));
 
   &>a.brand {
     float: left;
@@ -115,6 +129,29 @@ header#header {
       }
     }
   }
+
+  &>nav#help {
+    height: $header-height;
+    float: right;
+    font-size: 0;
+
+    &>div {
+      border-left: solid 1px darken($color-steel, 5%);
+      position: relative;
+      overflow: hidden;
+      width: $header-height;
+      height: $header-height;
+      display: inline-block;
+      &>img {
+        filter: drop-shadow($color-steel-font 100px 0);
+        position: absolute;
+        top: 14px;
+        left: -86px;
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
 }
 nav#navs {
   position: fixed;
@@ -122,14 +159,14 @@ nav#navs {
   left: 0;
   right: 0;
   padding: 10px 50px;
-  background-color: darken($color-steel, 5%);
+  background: linear-gradient(to bottom right, darken($color-steel, 5%), darken($color-steel, 15%));
   border-bottom: solid 1px lighten($color-steel, 5%);
   display: none;
   z-index: 150;
   min-width: 1280px;
   overflow: hidden;
 
-  &.toggled {
+  &.active {
     display: block;
   }
 
@@ -140,21 +177,22 @@ nav#navs {
     top: calc(50% - 250px);
     width: 400px;
     height: 500px;
-    opacity: 0.05;
+    opacity: 0.1;
   }
 
   &>div.menu-tabs {
     font-size: 14px;
     float: left;
     padding-right: 20px;
+    border-right: solid 1px lighten($color-steel, 5%);
 
     &>div.menu-tab {
       cursor: pointer;
       margin: 20px 0;
-      padding: 10px 30px;
+      padding: 10px 50px;
       color: $color-steel-font;
       background-color: lighten($color-steel, 5%);
-      box-shadow: 4px 4px 10px rgba($color-0, 0.5);
+      box-shadow: 0 4px 12px rgba($color-0, 0.4);
       transition: color 200ms, background-color 200ms;
 
       &:hover, &.active {
@@ -166,6 +204,7 @@ nav#navs {
 
   &>div.menu-contents {
     float: left;
+    margin-left: -1px;
     padding-left: 10px;
     font-size: 13px;
     border-left: solid 1px lighten($color-steel, 5%);
@@ -185,7 +224,7 @@ nav#navs {
         padding: 5px 20px;
         color: $color-steel-font;
         background-color: lighten($color-steel, 5%);
-        box-shadow: 4px 4px 10px rgba($color-0, 0.5);
+        box-shadow: 0 4px 12px rgba($color-0, 0.4);
         transition: color 200ms, background-color 200ms;
         width: 300px;
         height: 60px;
@@ -215,8 +254,10 @@ nav#navs {
           &>img {
             filter: drop-shadow($color-steel-font 100px 0);
             position: absolute;
-            top: 3px;
+            top: 11px;
             left: -100px;
+            width: 48px;
+            height: 48px;
           }
         }
       }
