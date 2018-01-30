@@ -1,16 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import authStore from '@/store/auth/auth'
+import dashboardStore from '@/store/dashboard/dashboard'
 
-import Dashboard from '@/views/dashboard/dashboard'
 import Login from '@/views/auth/login'
-import User from '@/views/auth/user'
-import Desktop from '@/views/desktop/desktop'
+import Dashboard from '@/views/dashboard/root'
 
 Vue.use(Router)
 
 if (window.sessionStorage.getItem('token')) {
-  authStore.commit('login', window.sessionStorage.getItem('token'))
+  authStore.commit('setToken', window.sessionStorage.getItem('token'))
+}
+
+if (window.sessionStorage.getItem('menus')) {
+  authStore.commit('setMenus', window.sessionStorage.getItem('menus'))
 }
 
 const router = new Router({
@@ -25,12 +28,9 @@ const router = new Router({
       children: [
         {
           path: '/',
-          component: Desktop
+          component: resolve => require(['@/views/dashboard/index'], resolve)
         },
-        {
-          path: '/user',
-          component: User
-        }
+        ...getRouters(dashboardStore.state.menus)
       ]
     }
   ]
@@ -55,5 +55,17 @@ router.beforeEach((to, from, next) => {
     }
   }
 })
+
+function getRouters(menus = [], children = []) {
+  menus.forEach(menu => {
+    menu.children.forEach(item => {
+      children.push({
+        path: item.url,
+        component: resolve => require(['@/views' + item.url], resolve)
+      })
+    })
+  })
+  return children
+}
 
 export default router

@@ -22,7 +22,7 @@ axios.interceptors.response.use(
   err => {
     switch (err.response.status) {
       case 401:
-        authStore.commit('logout')
+        authStore.commit('clearToken')
         router.push('/')
         return Promise.reject(err)
     }

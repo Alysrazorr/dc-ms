@@ -135,22 +135,29 @@ html, body {
 }
 
 a {
-    color: rgb(114,114,118);
+    color: $color-steel-font;
     text-decoration: none;
     &:hover, &:active {
-        color: rgb(91,92,113);
+        color: $color-f;
     }
 }
 
-*.dui {
+*.aface {
 	@include zero;
-	@include border-box;
+    @include border-box;
+    
 	font-family: $font-family;
 }
 
-div.float-container {
-    &>* {
-        float: left;
-    }
+* {
+    color: $color-steel-font;
 }
 
+*.none-select {
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}

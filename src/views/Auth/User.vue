@@ -1,7 +1,6 @@
 <template>
   <div>
     <a href="javascript:;" @click="search">查询</a>
-    <a href="javascript:;" @click="search2">查询</a>
   </div>
 </template>
 
@@ -17,10 +16,6 @@ export default {
           id: '123'
         }
       }).then(function(resp) {
-      })
-    },
-    search2: function() {
-      this.$http.post(userApi.getMenus).then(function(resp) {
       })
     }
   }

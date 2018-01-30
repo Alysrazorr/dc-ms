@@ -4,22 +4,26 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  token: null
+  token: null,
+  menus: null
 }
 
-// const actions = {
-//   login: ({commit}, token) => {
-//   }
-// }
-
 const mutations = {
-  login: (state, token) => {
+  setToken: (state, token) => {
     window.sessionStorage.token = token
     state.token = token
   },
-  logout: (state) => {
+  clearToken: (state) => {
     window.sessionStorage.removeItem('token')
     state.token = null
+  },
+  setMenus: (state, menus) => {
+    window.sessionStorage.menus = menus
+    state.menus = menus
+  },
+  clearMenus: () => {
+    window.sessionStorage.removeItem('menus')
+    state.menus = null
   }
 }
 

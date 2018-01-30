@@ -48,7 +48,7 @@ export default {
           pw: this.$data.pw
         }
       }).then(function(resp) {
-        authStore.commit('login', resp.data.data)
+        authStore.commit('setToken', resp.data.data)
         router.push('/')
       })
     }
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/scss/global.scss";
+@import "../../assets/scss/aface.scss";
 
 $section-size: 50px;
 
