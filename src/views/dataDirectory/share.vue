@@ -4,11 +4,10 @@
 
 <script>
 export default {
-  name: 'urlPermissionEdit'
+  name: 'share'
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/aface.scss';
 
 </style>

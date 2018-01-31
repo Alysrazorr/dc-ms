@@ -57,22 +57,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/scss/aface.scss";
-
 $section-size: 50px;
 
 table {
   width: 100%;
   height: 100%;
-  background-color: $color-steel;
+  background: linear-gradient(to bottom right, darken($color-steel, 5%), darken($color-steel, 15%));
 }
 td#logo {
   width: 55%;
   text-align: right;
   padding-right: 50px;
-  color: $color-orange;
   font-size: 70px;
   text-shadow: 2px 2px 4px $color-0;
+  &>* {
+    color: $color-orange !important;
+  }
 }
 td#form {
   text-align: left;
@@ -92,11 +92,12 @@ div#login-form-container {
       size: 40px;
       family: 'simhei';
     }
-    color: lighten($color-steel, 60%);
+    // color: $color-steel-font;
     text-shadow: 2px 2px $color-0;
 
     &.input {
       background-color: darken($color-steel, 3%);
+      border-radius: 3px;
       &>img {
         display: block;
         position: absolute;

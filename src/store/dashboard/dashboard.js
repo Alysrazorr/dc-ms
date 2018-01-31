@@ -69,7 +69,7 @@ const state = {
         {
           name: '推送接口节点',
           id: 'menu24',
-          url: '/exchangeNode/apiPUsh',
+          url: '/exchangeNode/apiPush',
           desc: ''
         }
       ]
@@ -81,43 +81,43 @@ const state = {
         {
           name: '数据接入任务',
           id: 'menu31',
-          url: '/dataPullTask',
+          url: '/dataTask/pull',
           desc: '将数据从前置机读取到交换库'
         },
         {
           name: '数据检查任务',
           id: 'menu32',
-          url: '/dataCheckTask',
+          url: '/dataTask/check',
           desc: '检查数据质量'
         },
         {
           name: '数据校验任务',
           id: 'menu33',
-          url: '/dataVerificationTask',
+          url: '/dataTask/verify',
           desc: '校验数据质量'
         },
         {
           name: '数据清洗任务',
           id: 'menu34',
-          url: '/dataETLTask',
+          url: '/dataTask/etl',
           desc: '清洗数据'
         },
         {
           name: '数据转换任务',
           id: 'menu35',
-          url: '/dataTransformTask',
+          url: '/dataTask/transform',
           desc: '对数据进行转换'
         },
         {
           name: '数据推送任务',
           id: 'menu36',
-          url: '/dataPushTask',
+          url: '/dataTask/push',
           desc: '推送数据'
         },
         {
           name: '任务标签管理',
           id: 'menu37',
-          url: '/tag',
+          url: '/dataTask/tag',
           desc: '管理任务标签'
         }
       ]
@@ -129,13 +129,13 @@ const state = {
         {
           name: '数据质量监测',
           id: 'menu41',
-          url: '/dataQualityMonitor',
+          url: '/dataQuality/monitor',
           desc: '监测数据质量情况'
         },
         {
           name: '数据质量报告',
           id: 'menu42',
-          url: '/dataQualityReport',
+          url: '/dataQuality/report',
           desc: '监测数据质量情况导出报告'
         }
       ]
@@ -231,19 +231,19 @@ const state = {
         {
           name: '系统权限管理',
           id: 'menu74',
-          url: '/auth/urlPermission',
+          url: '/auth/urlPermission/index',
           desc: ''
         },
         {
           name: '数据权限管理',
           id: 'menu75',
-          url: '/auth/dataPermission',
+          url: '/auth/dataPermission/index',
           desc: ''
         },
         {
-          name: '运维任务管理',
+          name: '运行维护管理',
           id: 'menu76',
-          url: '/auth/maintainceTask',
+          url: '/maintaince',
           desc: ''
         }
       ]

@@ -85,8 +85,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/scss/aface.scss";
-
 $header-height: 60px;
 $sidebar-width: 250px;
 $sidebar-toggle-width: 25px;

@@ -9,8 +9,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './assets/scss/global.scss';
-
 div#app {
   position: fixed;
   top: 0;
