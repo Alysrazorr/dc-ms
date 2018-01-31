@@ -5,6 +5,7 @@ import dashboardStore from '@/store/dashboard/dashboard'
 
 import Login from '@/views/auth/login'
 import Dashboard from '@/views/dashboard/root'
+import NotFound from '@/views/errorPage/notFound'
 
 Vue.use(Router)
 
@@ -32,6 +33,10 @@ const router = new Router({
         },
         ...getRouters(dashboardStore.state.menus)
       ]
+    },
+    {
+      path: '*',
+      component: NotFound
     }
   ]
 })

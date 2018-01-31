@@ -211,7 +211,7 @@ const state = {
       id: 'menu7',
       children: [
         {
-          name: '组织结构管理',
+          name: '组织机构管理',
           id: 'menu71',
           url: '/auth/organization',
           desc: ''
@@ -243,7 +243,7 @@ const state = {
         {
           name: '运行维护管理',
           id: 'menu76',
-          url: '/maintaince',
+          url: '/platform/maintaince',
           desc: ''
         }
       ]

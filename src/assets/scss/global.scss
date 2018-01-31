@@ -20,11 +20,7 @@ $color-grass: rgb(57,130,90);
 $color-orange: #f0ad4e;
 $color-fire: rgb(220,97,65);
 
-$color-character: $color-3;
-
-$color-bg: rgb(41, 52, 67);
-
-$color-steel: rgb(35,38,45);
+$color-steel: rgb(45,48,55);
 $color-steel-font: lighten($color-steel, 60%);
 
 // $color-primary: #428bca;
@@ -35,7 +31,7 @@ $color-steel-font: lighten($color-steel, 60%);
 // $color-danger: #d9534f;
 
 $font-size: 14px;
-$font-family: 'Microsoft YaHei', 'Times New Roman';
+$font-family: 'Microsoft YaHei', 'simhei', 'Times New Roman';
 
 $transition-speed: 300ms;
 
@@ -131,7 +127,6 @@ $transition-speed: 300ms;
 html, body {
 	font-family: $font-family;
     color: $color-f;
-    background-color: $color-bg;
 }
 
 a {
@@ -155,9 +150,9 @@ a {
 
 *.none-select {
     -moz-user-select: none;
-    -o-user-select:none;
-    -khtml-user-select:none;
-    -webkit-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

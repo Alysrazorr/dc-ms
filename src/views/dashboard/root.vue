@@ -1,25 +1,35 @@
 <template>
-  <div id="dashboard">
+  <div id="dashboard" @click="isMenuActive() ? activeMenu() : true, activeUserMenu(), activeMessageMenu()">
     <header id="header">
-      <img class="brand none-select" src="@/assets/logo.png" @click="activeMenu"/>
+      <img class="brand none-select" src="@/assets/logo.png" @click="activeMenu" @click.stop/>
       <div class="title none-select">
         <div class="main" @click="goTo('/'), isMenuActive() ? activeMenu() : false">智慧南沙公共信息资源服务平台</div>
         <div class="sub">Nansha Public Information Resources Service Platform</div>
       </div>
       <nav id="help">
-        <div id="search">
-          <img src="/static/icon/search.png">
+        <div id="config" @click="showUserMenu = !showUserMenu" @click.stop>
+          <i class="icon-user"></i>
+          <transition name="slide-y">
+            <ul class="aface" v-if="showUserMenu">
+              <li class="aface">用户信息</li>
+              <li class="aface">退出登录</li>
+            </ul>
+          </transition>
         </div>
-        <div id="message">
-          <img src="/static/icon/tones.png">
-        </div>
-        <div id="config">
-          <img src="/static/icon/user.png">
+        <div id="message" @click="showMessageMenu = !showMessageMenu" @click.stop>
+          <i class="icon-bell"></i>
+          <transition name="slide-y">
+            <ul class="aface" v-if="showMessageMenu">
+              <li class="aface">用户信息</li>
+              <li class="aface">退出登录</li>
+            </ul>
+          </transition>
         </div>
       </nav>
+      <input class="aface" :model="keyword" placeholder="搜索..."/>
     </header>
     <transition name="slide-fade">
-      <nav id="navs" v-if="isMenuActive()">
+      <nav id="navs" v-if="isMenuActive()" @click.stop>
         <div class="menu-tabs">
           <div class="menu-tab" :class="[{active: isMenuTabActive(menu.id)}]" v-for="menu of menus" :key="menu.id" @click="activeMenuTab(menu.id)">{{menu.name}}</div>
         </div>
@@ -44,14 +54,16 @@
 
 <script>
 import dashboardStore from '@/store/dashboard/dashboard'
-import hCard from '@/components/hCard'
 import router from '@/router'
 
 export default {
   name: 'dashboard',
   data: function() {
     return {
-      menus: dashboardStore.state.menus
+      menus: dashboardStore.state.menus,
+      keyword: null,
+      showMessageMenu: false,
+      showUserMenu: false
     }
   },
   methods: {
@@ -65,6 +77,12 @@ export default {
       this.activeMenu()
       dashboardStore.commit('activeMenuItem', id)
     },
+    activeUserMenu: function() {
+      this.showUserMenu = false
+    },
+    activeMessageMenu: function() {
+      this.showMessageMenu = false
+    },
     isMenuActive: function() {
       return dashboardStore.state.isMenuActive
     },
@@ -77,24 +95,24 @@ export default {
     goTo: function(url) {
       router.push(url)
     }
-  },
-  components: {
-    hCard
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/style.css';
 $header-height: 60px;
-$sidebar-width: 250px;
-$sidebar-toggle-width: 25px;
-$sidebar-menu-item-height: 40px;
+$header-toggle-size: $header-height - 20px;
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.slide-y-enter-active {
+  transition: all .3s ease;
 }
-.fade-enter, .fade-leave-to {
-  opacity: 0;
+.slide-y-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-y-enter, .slide-y-leave-to {
+  transform: translateY(5px);
+  opacity: 0.6;
 }
 
 .slide-fade-enter-active {
@@ -158,6 +176,23 @@ header#header {
     }
   }
 
+  &>input.aface {
+    background-color: darken($color-steel, 10%);
+    height: $header-height - 20px;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 3px;
+    float: right;
+    padding: 0 10px;
+    width: 150px;
+    transition: width 600ms, background-color 600ms;
+    box-shadow: 0 2px 6px rgba($color-0, 0.8) inset;
+
+    &:hover {
+      width: 200px;
+      background-color: darken($color-steel, 5%);
+    }
+  }
   &>nav#help {
     height: $header-height;
     float: right;
@@ -166,17 +201,41 @@ header#header {
     &>div {
       border-left: solid 1px darken($color-steel, 5%);
       position: relative;
-      overflow: hidden;
-      width: $header-height;
       height: $header-height;
-      display: inline-block;
-      &>img {
-        filter: drop-shadow($color-steel-font 100px 0);
+      float: right;
+      transition: color 200ms, background-color 200ms;
+
+      &>i {
+        display: block;
+        text: {
+          align: center;
+          shadow: 2px 2px 4px rgba($color-0, 0.8);
+        }
+        width: $header-toggle-size / 1.5 + 6px;
+        height: $header-toggle-size / 1.5 + 6px;
+        line-height: $header-toggle-size / 1.5 + 6px;
+        margin: ($header-height - $header-toggle-size / 1.5 - 6) / 2;
+        font-size: $header-toggle-size / 1.5 + 4px;
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: darken($color-steel, 5%);
+      }
+
+      z-index: 300;
+      &>ul {
         position: absolute;
-        top: 14px;
-        left: -86px;
-        width: 32px;
-        height: 32px;
+        font-size: 14px;
+        right: 0;
+        height: 40px;
+        &>li {
+          width: 150px;
+          color: $color-3;
+          list-style-type: none;
+          font-size: 14px;
+          background-color: $color-f;
+        }
       }
     }
   }
