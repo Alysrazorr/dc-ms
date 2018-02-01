@@ -1,12 +1,12 @@
 import axios from 'axios'
-import authStore from './store/auth/auth'
+import store from './store'
 import router from './router'
 
 axios.defaults.baseURL = '/api'
 axios.interceptors.request.use(
   config => {
-    if (authStore.state.token) {
-      config.headers.Token = `${authStore.state.token}`
+    if (store.state.auth.token) {
+      config.headers.Token = `${store.state.auth.token}`
     }
     return config
   },
@@ -22,7 +22,7 @@ axios.interceptors.response.use(
   err => {
     switch (err.response.status) {
       case 401:
-        authStore.commit('clearToken')
+        store.commit('auth/clearToken')
         router.push('/')
         return Promise.reject(err)
     }

@@ -1,20 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import authStore from '@/store/auth/auth'
-import dashboardStore from '@/store/dashboard/dashboard'
+import store from '@/store'
 
-import Login from '@/views/auth/login'
-import Dashboard from '@/views/dashboard/root'
+import Login from '@/views/login'
+import Root from '@/views/root'
 import NotFound from '@/views/errorPage/notFound'
 
 Vue.use(Router)
 
 if (window.sessionStorage.getItem('token')) {
-  authStore.commit('setToken', window.sessionStorage.getItem('token'))
+  store.commit('auth/setToken', window.sessionStorage.getItem('token'))
 }
 
 if (window.sessionStorage.getItem('menus')) {
-  authStore.commit('setMenus', window.sessionStorage.getItem('menus'))
+  store.commit('auth/setMenus', window.sessionStorage.getItem('menus'))
 }
 
 const router = new Router({
@@ -25,13 +24,14 @@ const router = new Router({
     },
     {
       path: '/',
-      component: Dashboard,
+      component: Root,
+      redirect: '/dashboard',
       children: [
         {
-          path: '/',
-          component: resolve => require(['@/views/dashboard/index'], resolve)
+          path: '/dashboard',
+          component: resolve => require(['@/views/dashboard'], resolve)
         },
-        ...getRouters(dashboardStore.state.menus)
+        ...getRouters(store.state.dashboard.menus)
       ]
     },
     {
@@ -43,7 +43,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.path !== '/login') {
-    if (authStore.state.token) {
+    if (store.state.auth.token) {
       next()
     } else {
       next({
@@ -51,7 +51,7 @@ router.beforeEach((to, from, next) => {
       })
     }
   } else {
-    if (authStore.state.token) {
+    if (store.state.auth.token) {
       next({
         path: '/'
       })

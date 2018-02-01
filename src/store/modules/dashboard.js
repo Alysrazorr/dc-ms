@@ -231,13 +231,13 @@ const state = {
         {
           name: '系统权限管理',
           id: 'menu74',
-          url: '/auth/urlPermission/index',
+          url: '/auth/urlPermission',
           desc: ''
         },
         {
           name: '数据权限管理',
           id: 'menu75',
-          url: '/auth/dataPermission/index',
+          url: '/auth/dataPermission',
           desc: ''
         },
         {
@@ -263,6 +263,14 @@ const mutations = {
   }
 }
 
-export default new Vuex.Store({
-  state, mutations
-})
+const actions = {}
+
+const getters = {}
+
+export default {
+  namespaced: true,
+  state,
+  mutations,
+  actions,
+  getters
+}

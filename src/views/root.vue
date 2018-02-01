@@ -53,14 +53,13 @@
 </template>
 
 <script>
-import dashboardStore from '@/store/dashboard/dashboard'
 import router from '@/router'
 
 export default {
   name: 'dashboard',
   data: function() {
     return {
-      menus: dashboardStore.state.menus,
+      menus: this.$store.state.dashboard.menus,
       keyword: null,
       showMessageMenu: false,
       showUserMenu: false
@@ -68,14 +67,14 @@ export default {
   },
   methods: {
     activeMenu: function() {
-      dashboardStore.commit('activeMenu')
+      this.$store.commit('dashboard/activeMenu')
     },
     activeMenuTab: function(id) {
-      dashboardStore.commit('activeMenuTab', id)
+      this.$store.commit('dashboard/activeMenuTab', id)
     },
     activeMenuItem: function(id) {
       this.activeMenu()
-      dashboardStore.commit('activeMenuItem', id)
+      this.$store.commit('dashboard/activeMenuItem', id)
     },
     activeUserMenu: function() {
       this.showUserMenu = false
@@ -84,13 +83,13 @@ export default {
       this.showMessageMenu = false
     },
     isMenuActive: function() {
-      return dashboardStore.state.isMenuActive
+      return this.$store.state.dashboard.isMenuActive
     },
     isMenuTabActive: function(id) {
-      return dashboardStore.state.activeMenuTabId === id
+      return this.$store.state.dashboard.activeMenuTabId === id
     },
     isMenuItemActive: function(id) {
-      return dashboardStore.state.activeMenuItemId === id
+      return this.$store.state.dashboard.activeMenuItemId === id
     },
     goTo: function(url) {
       router.push(url)
@@ -100,7 +99,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/style.css';
+@import '../assets/style.css';
 $header-height: 60px;
 $header-toggle-size: $header-height - 20px;
 
