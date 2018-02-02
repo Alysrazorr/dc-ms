@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
-import collectionUtils from '@/utils/collection'
-import api from '@/api/auth/organization'
+// import axios from 'axios'
+// import collectionUtils from '@/utils/collection'
 
 Vue.use(Vuex)
 
@@ -21,8 +20,9 @@ const mutations = {
 
 const actions = {
   getTreeByParentCode: function({ commit }) {
-    axios.get(api.getTreeByParentCode).then((resp) => {
-      commit('setTreeData', collectionUtils.a2t(resp.data.data))
+    var self = this
+    self.$http.get(self.$api.getTreeByParentCode).then((resp) => {
+      commit('setTreeData', self.$a2t(resp.data.data))
     })
   }
 }

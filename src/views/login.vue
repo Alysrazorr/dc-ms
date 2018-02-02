@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import authApi from '@/api/auth/auth'
-
 export default {
   name: 'login',
   data: function() {
@@ -40,15 +38,15 @@ export default {
   },
   methods: {
     login: function() {
-      var self = this
-      this.$http.get(authApi.login, {
+      var _vm = this
+      _vm.$http.get(_vm.$api.auth.login, {
         params: {
-          ac: this.$data.ac,
-          pw: this.$data.pw
+          ac: _vm.$data.ac,
+          pw: _vm.$data.pw
         }
       }).then(function(resp) {
-        self.$store.commit('auth/setToken', resp.data.data)
-        self.$router.push('/dashboard')
+        _vm.$store.commit('auth/setToken', resp.data.data)
+        _vm.$router.push('/dashboard')
       })
     }
   }
