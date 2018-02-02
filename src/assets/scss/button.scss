@@ -1,10 +1,16 @@
 @mixin buttonStyle($color) {
   background-color: $color;
+  &:hover {
+    box-shadow: 0 0 0 3px rgba($color, 0.5);
+  }
 }
 
 button.aface {
-  height: 40px;
-  padding: 10px 20px;
+  cursor: pointer;
+  height: 35px;
+  line-height: 35px;
+  padding: 0 20px;
+  border-radius: 3px;
 
   color: $color-steel-font;
   background-color: lighten($color-steel, 10%);

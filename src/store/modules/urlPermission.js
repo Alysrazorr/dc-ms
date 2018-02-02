@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 const state = {
   treeData: {
-    name: '系统权限管理',
+    name: '平台权限管理',
     children: []
   }
 }
@@ -16,9 +16,6 @@ const state = {
 const mutations = {
   setTreeData: (state, data) => {
     state.treeData.children = data
-  },
-  clearTreeData: (state) => {
-    state.treeData = null
   }
 }
 

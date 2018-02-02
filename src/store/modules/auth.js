@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import organization from './organization'
 
 Vue.use(Vuex)
 
@@ -31,10 +32,15 @@ const actions = {}
 
 const getters = {}
 
+const modules = {
+  organization
+}
+
 export default {
   namespaced: true,
   state,
   mutations,
   actions,
-  getters
+  getters,
+  modules
 }

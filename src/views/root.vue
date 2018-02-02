@@ -1,14 +1,15 @@
 <template>
-  <div id="dashboard" @click="isMenuActive() ? activeMenu() : true, activeUserMenu(), activeMessageMenu()">
+  <div id="dashboard" @click="showMenu ? showMenu = false : false, activeUserMenu(), activeMessageMenu()">
     <header id="header">
-      <img class="brand none-select" src="@/assets/logo.png" @click="activeMenu" @click.stop/>
+      <img class="brand none-select" src="@/assets/logo.png" @click="showMenu = !showMenu" @click.stop/>
       <div class="title none-select">
-        <div class="main" @click="goTo('/'), isMenuActive() ? activeMenu() : false">智慧南沙公共信息资源服务平台</div>
+        <div class="main" @click="goTo('/'), showMenu ? showMenu = false : false">智慧南沙公共信息资源服务平台</div>
         <div class="sub">Nansha Public Information Resources Service Platform</div>
       </div>
       <nav id="help">
         <div id="config" @click="showUserMenu = !showUserMenu" @click.stop>
-          <i class="icon-user"></i>
+          <i class="fas fa-user-circle"></i>
+          <div class="underline"></div>
           <transition name="slide-y">
             <ul class="aface" v-if="showUserMenu">
               <li class="aface">用户信息</li>
@@ -17,7 +18,8 @@
           </transition>
         </div>
         <div id="message" @click="showMessageMenu = !showMessageMenu" @click.stop>
-          <i class="icon-bell"></i>
+          <i class="far fa-bell"></i>
+          <div class="underline"></div>
           <transition name="slide-y">
             <ul class="aface" v-if="showMessageMenu">
               <li class="aface">用户信息</li>
@@ -26,10 +28,9 @@
           </transition>
         </div>
       </nav>
-      <input class="aface" :model="keyword" placeholder="搜索..."/>
     </header>
     <transition name="slide-fade">
-      <nav id="navs" v-if="isMenuActive()" @click.stop>
+      <nav id="navs" v-if="showMenu" @click.stop>
         <div class="menu-tabs">
           <div class="menu-tab" :class="[{active: isMenuTabActive(menu.id)}]" v-for="menu of menus" :key="menu.id" @click="activeMenuTab(menu.id)">{{menu.name}}</div>
         </div>
@@ -53,8 +54,6 @@
 </template>
 
 <script>
-import router from '@/router'
-
 export default {
   name: 'dashboard',
   data: function() {
@@ -62,18 +61,17 @@ export default {
       menus: this.$store.state.dashboard.menus,
       keyword: null,
       showMessageMenu: false,
-      showUserMenu: false
+      showUserMenu: false,
+      showSearchMenu: false,
+      showMenu: false
     }
   },
   methods: {
-    activeMenu: function() {
-      this.$store.commit('dashboard/activeMenu')
-    },
     activeMenuTab: function(id) {
       this.$store.commit('dashboard/activeMenuTab', id)
     },
     activeMenuItem: function(id) {
-      this.activeMenu()
+      this.showMenu = false
       this.$store.commit('dashboard/activeMenuItem', id)
     },
     activeUserMenu: function() {
@@ -82,9 +80,6 @@ export default {
     activeMessageMenu: function() {
       this.showMessageMenu = false
     },
-    isMenuActive: function() {
-      return this.$store.state.dashboard.isMenuActive
-    },
     isMenuTabActive: function(id) {
       return this.$store.state.dashboard.activeMenuTabId === id
     },
@@ -92,14 +87,13 @@ export default {
       return this.$store.state.dashboard.activeMenuItemId === id
     },
     goTo: function(url) {
-      router.push(url)
+      this.$router.push(url)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/style.css';
 $header-height: 60px;
 $header-toggle-size: $header-height - 20px;
 
@@ -175,34 +169,23 @@ header#header {
     }
   }
 
-  &>input.aface {
-    background-color: darken($color-steel, 10%);
-    height: $header-height - 20px;
-    margin-top: 10px;
-    margin-right: 10px;
-    border-radius: 3px;
-    float: right;
-    padding: 0 10px;
-    width: 150px;
-    transition: width 600ms, background-color 600ms;
-    box-shadow: 0 2px 6px rgba($color-0, 0.8) inset;
-
-    &:hover {
-      width: 200px;
-      background-color: darken($color-steel, 5%);
-    }
-  }
   &>nav#help {
     height: $header-height;
     float: right;
     font-size: 0;
 
     &>div {
-      border-left: solid 1px darken($color-steel, 5%);
       position: relative;
       height: $header-height;
       float: right;
-      transition: color 200ms, background-color 200ms;
+      cursor: pointer;
+      z-index: 300;
+
+      &:hover {
+        &>i {
+          color: $color-sea;
+        }
+      }
 
       &>i {
         display: block;
@@ -210,24 +193,20 @@ header#header {
           align: center;
           shadow: 2px 2px 4px rgba($color-0, 0.8);
         }
-        width: $header-toggle-size / 1.5 + 6px;
-        height: $header-toggle-size / 1.5 + 6px;
-        line-height: $header-toggle-size / 1.5 + 6px;
-        margin: ($header-height - $header-toggle-size / 1.5 - 6) / 2;
-        font-size: $header-toggle-size / 1.5 + 4px;
+        width: $header-toggle-size / 1.5;
+        height: $header-toggle-size / 1.5;
+        line-height: $header-toggle-size / 1.5;
+        margin: ($header-height - $header-toggle-size / 1.5) / 2;
+        font-size: $header-toggle-size / 1.5;
+        transition: color 200ms;
       }
 
-      &:hover {
-        cursor: pointer;
-        background-color: darken($color-steel, 5%);
-      }
-
-      z-index: 300;
       &>ul {
         position: absolute;
         font-size: 14px;
         right: 0;
         height: 40px;
+
         &>li {
           width: 150px;
           color: $color-3;
@@ -271,7 +250,9 @@ nav#navs {
     &>div.menu-tab {
       cursor: pointer;
       margin: 20px 0;
-      padding: 10px 50px;
+      padding: 0 50px;
+      height: 40px;
+      line-height: 40px;
       color: $color-steel-font;
       background-color: lighten($color-steel, 5%);
       box-shadow: 0 4px 12px rgba($color-0, 0.4);

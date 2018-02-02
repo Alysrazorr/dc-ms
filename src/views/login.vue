@@ -12,12 +12,12 @@
             <span class="section">系统登录</span>
             <br />
             <span class="section input">
-              <img src="@/assets/images/user.png">
+              <i class="fas fa-user-circle"></i>
               <input id="ac" v-model="ac" @keydown.enter="login" placeholder="账号"/>
             </span>
             <br />
             <span class="section input">
-              <img src="@/assets/images/lock.png">
+              <i class="fas fa-lock"></i>
               <input id="pw" v-model="pw" @keydown.enter="login" placeholder="密码"/>
             </span>
           </div>
@@ -91,21 +91,22 @@ div#login-form-container {
       size: 40px;
       family: 'simhei';
     }
-    // color: $color-steel-font;
     text-shadow: 2px 2px $color-0;
 
     &.input {
       background-color: darken($color-steel, 3%);
       border-radius: 3px;
-      &>img {
+      &>i {
         display: block;
-        position: absolute;
-        left: 0;
-
-        width: 32px;
-        height: 32px;
-        margin-top: 8px;
-        margin-left: 9px;
+        float: left;
+        width: $section-size;
+        height: $section-size;
+        line-height: $section-size;
+        text: {
+          align: center;
+          shadow: 0 4px 4px rgba($color-0, 0.8);
+        }
+        font-size: $section-size / 1.8;
       }
       &>input {
         box-sizing: border-box;
