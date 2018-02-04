@@ -16,6 +16,7 @@ $color-e: #eee;
 $color-f: #fff;
 
 $color-sea: rgb(66,105,165);
+$color-sky: rgb(0,188,212);
 $color-grass: rgb(57,130,90);
 $color-orange: #f0ad4e;
 $color-fire: rgb(220,97,65);
@@ -130,11 +131,7 @@ html, body {
 }
 
 a {
-    color: $color-steel-font;
     text-decoration: none;
-    &:hover, &:active {
-        color: $color-f;
-    }
 }
 
 *.aface {
@@ -144,6 +141,7 @@ a {
 	font-family: $font-family;
 }
 
+$font-color: $color-9;
 * {
     color: $color-9;
 }

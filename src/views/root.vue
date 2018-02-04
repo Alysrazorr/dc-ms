@@ -21,9 +21,9 @@
             <li class="item" v-for="menuItem of menu.children" :key="menuItem.id">
               <div class="title-container"
                 :class="[[{active: activeMenuItemId === menuItem.id}]]"
-                @click="activeMenuItemId = menuItem.id">
+                @click="activeMenuItemId = menuItem.id, goTo(menuItem.url)">
                 <i class="material-icons">{{menuItem.icon}}</i>
-                <router-link class="title" :to="menuItem.url">{{menuItem.name}}</router-link>
+                <span class="title">{{menuItem.name}}</span>
                 <i class="material-icons arrow">more_horiz</i>
               </div>
             </li>
@@ -80,10 +80,10 @@ nav#sidebar {
     @include zero;
     position: absolute;
     top: 140px;
-    left: 20px;
+    left: 15px;
     right: 5px;
-    bottom: 20px;
-    padding-right: 15px;
+    bottom: 15px;
+    padding-right: 10px;
     overflow: auto;
 
     ul, li {
@@ -102,17 +102,17 @@ nav#sidebar {
 
       &.active {
         &>div.title-container {
-          background-color: $color-sea;
+          background-color: $color-sky;
           &>* { color: $color-f !important; }
           &>i.arrow { transform: rotate(90deg); }
-          &>.title { box-shadow: 0 0 20px rgba($color-sea, 0.8); }
+          &>.title { box-shadow: 0 0 20px rgba($color-sky, 0.8); }
         }
       }
     }
     li.item>div.title-container {
       margin-left: $menu-item-height / 4;
-      font-size: 12px;
-      &>i { font-size: 24px; }
+      font-size: 13px;
+      &>i { font-size: 26px; }
     }
     div.title-container {
       position: relative;
@@ -143,13 +143,15 @@ nav#sidebar {
 
       &>.title {
         position: absolute;
-        left: 20px;
-        right: 20px;
-        padding: 0 $menu-item-height - 20px;
+        left: 10px;
+        right: 10px;
+        padding: 0 $menu-item-height - 10px;
         z-index: 100;
       }
 
-      &:hover { background-color: $sidebar-menu-hover; }
+      &:hover {
+        background-color: $sidebar-menu-hover;
+      }
     }
   }
 

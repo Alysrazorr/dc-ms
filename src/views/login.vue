@@ -12,12 +12,12 @@
             <span class="section">系统登录</span>
             <br />
             <span class="section input">
-              <i class="fas fa-user-circle"></i>
+              <i class="material-icons">account_circle</i>
               <input id="ac" v-model="ac" @keydown.enter="login" placeholder="账号"/>
             </span>
             <br />
             <span class="section input">
-              <i class="fas fa-lock"></i>
+              <i class="material-icons">lock</i>
               <input id="pw" v-model="pw" @keydown.enter="login" placeholder="密码"/>
             </span>
           </div>
