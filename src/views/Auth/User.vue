@@ -5,13 +5,12 @@
 </template>
 
 <script>
-import userApi from '../../api/auth/user'
-
 export default {
   name: 'user',
   methods: {
     search: function() {
-      this.$http.get(userApi.getMenus, {
+      var _vm = this
+      _vm.$http.get(_vm.$api.user.getMenus, {
         param: {
           id: '123'
         }

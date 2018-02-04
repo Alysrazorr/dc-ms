@@ -1,9 +1,3 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import organization from './organization'
-
-Vue.use(Vuex)
-
 const state = {
   token: null,
   menus: null
@@ -32,9 +26,7 @@ const actions = {}
 
 const getters = {}
 
-const modules = {
-  organization
-}
+const modules = {}
 
 export default {
   namespaced: true,

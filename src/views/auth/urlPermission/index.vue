@@ -1,6 +1,10 @@
 <template>
   <div>
-    <tree id="leftTree" v-if="treeData" :model="treeData"/>
+    <div id="leftTree" class="aface panel">
+      <div class="body">
+        <tree v-if="treeData" :model="treeData"/>
+      </div>
+    </div>
     <button class="aface button grass" @click="refresh">加载</button>
   </div>
 </template>
@@ -29,10 +33,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$box-shadow: 4px 4px 10px $color-0;
+
 #leftTree {
-  float: left;
-  margin-top: 20px;
-  margin-left: 40px;
-  margin-right: 40px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 300px;
+  bottom: 20px;
+  box-shadow: $box-shadow;
 }
 </style>

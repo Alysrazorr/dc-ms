@@ -1,0 +1,11 @@
+div.aface.panel {
+  background-color: darken($color-steel, 0%);
+  border-radius: 2px;
+  padding: 5px;
+  overflow: hidden;
+
+  &>div.body {
+    overflow: auto;
+    height: calc(100% - 40px);
+  }
+}

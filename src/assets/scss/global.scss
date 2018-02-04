@@ -145,7 +145,7 @@ a {
 }
 
 * {
-    color: $color-steel-font;
+    color: $color-9;
 }
 
 *.none-select {
@@ -155,4 +155,36 @@ a {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+    background-color: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    border: solid 1px $color-0;
+    background-color: lighten($color-steel, 10%)
+}
+
+.slide-y-enter-active {
+  transition: all .3s ease;
+}
+.slide-y-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-y-enter, .slide-y-leave-to {
+  transform: translateY(5px);
+  opacity: 0.6;
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
 }

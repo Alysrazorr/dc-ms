@@ -1,10 +1,3 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-// import axios from 'axios'
-// import collectionUtils from '@/utils/collection'
-
-Vue.use(Vuex)
-
 const state = {
   treeData: {
     name: '平台权限管理',
@@ -20,9 +13,9 @@ const mutations = {
 
 const actions = {
   getTreeByParentCode: function({ commit }) {
-    var self = this
-    self.$http.get(self.$api.getTreeByParentCode).then((resp) => {
-      commit('setTreeData', self.$a2t(resp.data.data))
+    var _vm = this._vm
+    _vm.$http.get(_vm.$api.organization.getTreeByParentCode).then((resp) => {
+      commit('setTreeData', _vm.$a2t(resp.data.data))
     })
   }
 }

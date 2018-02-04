@@ -1,6 +1,17 @@
 <template>
-  <div>
-    <button class="aface button sea" @click="logout">登出</button>
+  <div><div class="container-fluid">
+  <div class="row">
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
+</div>
   </div>
 </template>
 
@@ -8,8 +19,6 @@
 export default {
   methods: {
     logout: function() {
-      this.$store.commit('auth/clearToken')
-      this.$router.push('/123')
     }
   }
 }
