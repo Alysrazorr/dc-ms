@@ -10,5 +10,6 @@ div#app {
   right: 0;
   bottom: 0;
   min-width: 1440px;
+  overflow-y: auto;
 }
 </style>
