@@ -276,7 +276,7 @@ const state = {
         {
           name: '运行维护管理',
           id: 'menu76',
-          icon: 'settings_power',
+          icon: 'slow_motion_video',
           url: '/platform/maintaince',
           desc: ''
         }

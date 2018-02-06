@@ -321,6 +321,8 @@ footer#copyright {
   line-height: 80px;
   transition: padding-left 300ms;
   padding-left: $sidebar-width + 30px;
+  color: $color-5;
+
   font: {
     size: 14px;
     weight: 100;

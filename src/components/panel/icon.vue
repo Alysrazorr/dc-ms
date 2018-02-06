@@ -39,6 +39,7 @@ $shadow-sky: 0 4px 20px 0px rgba(0,0,0, 0.14), 0 7px 10px -5px rgba($color-sky, 
 div.icon-panel {
   position: relative;
   padding-bottom: 25px;
+
   &>i.icon {
     position: absolute;
     left: 25px;
@@ -51,7 +52,9 @@ div.icon-panel {
     color: $color-f;
     box-shadow: $shadow-sky;
     z-index: 200;
+    font-size: 32px;
   }
+
   &>span.title {
     position: absolute;
     top: 35px;
@@ -61,7 +64,8 @@ div.icon-panel {
       size: 16px;
       weight: 100;
     }
-  } 
+  }
+
   &>div.body {
     position: relative;
     top: 25px;

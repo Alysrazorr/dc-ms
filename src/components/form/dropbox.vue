@@ -1,31 +1,29 @@
 <template>
-  <div class="textbox-container">
+  <div class="dropbox-container">
     <label class="aface textbox-label" :class="[[{active: active}]]">{{label}}</label>
     <input type="text" class="aface textbox-value" v-model="value"
-      @blur="active = !isEmpty, focus = false"
-      @focus="active = true, focus = true"
-      @keypress.enter="callbacks.pressEnter">
+      @blur="active = !isEmpty(), focus = false"
+      @focus="active = true, focus = true">
     <div class="textbox-underline" :class="[[{active: focus}]]"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'textbox',
+  name: 'dropbox',
   props: {
     label: String,
-    callbacks: {
-      pressEnter: Function
-    }
+    data: Array
   },
   data: function() {
     return {
       active: false,
       focus: false,
+      text: null,
       value: null
     }
   },
-  computed: {
+  methods: {
     isEmpty: function() {
       return this.value === null || this.value === ''
     }
@@ -34,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div.textbox-container {
+div.dropbox-container {
   position: relative;
   height: 60px;
 
@@ -90,6 +88,5 @@ div.textbox-container {
       background-color: $color-sky;
     }
   }
-
 }
 </style>
