@@ -50,6 +50,7 @@ div.textbox-container {
   label.textbox-label {
     position: absolute;
     top: 30px;
+    left: 5px;
     z-index: 100;
     color: $color-5;
     @include transition($transition-speed);
@@ -72,7 +73,6 @@ div.textbox-container {
   input.textbox-value {
     position: absolute;
     top: 20px;
-    left: 0;
     width: 100%;
     bottom: 0;
     height: 40px;
@@ -80,6 +80,7 @@ div.textbox-container {
     z-index: 150;
     background: transparent;
     font-size: 15px;
+    padding-left: 5px;
     border-bottom: solid 1px $color-c;
   }
 

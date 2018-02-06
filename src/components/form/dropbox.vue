@@ -1,7 +1,8 @@
 <template>
-  <div class="dropbox-container">
+  <div class="dropbox-container"
+    @click="focus = !focus">
     <label class="dropbox-label">{{options.placeholder}}</label>
-    <div class="textbox-underline" :class="[[{active: focus}]]"></div>
+    <div class="dropbox-underline" :class="[[{active: focus}]]"></div>
   </div>
 </template>
 
@@ -42,27 +43,23 @@ div.dropbox-container {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: 40px;
+    line-height: 40px;
     z-index: 100;
     color: $color-5;
     display: block;
+    padding: 0 5px;
+    cursor: pointer;
+    border-bottom: solid 1px $color-c;
 
     font: {
       size: 14px;
       weight: 100;
       family: $font-family;
     }
-
-    &.active {
-      top: 0;
-      left: 0;
-      font: {
-        size: 13px;
-      }
-    }
   }
 
-  div.textbox-underline {
+  div.dropbox-underline {
     position: absolute;
     left: 50%;
     width: 0;

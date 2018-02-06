@@ -2,7 +2,8 @@
   <iconPanel :title="options.title">
     <div class="aface datagrid-container" slot="body">
       <div class="toolbar">
-        <dropbox :options="defaults.pageSizeBoxOptions" class="pagesize-box"/>
+        <dropbox :options="defaults.pageSizeBoxOptions" class="page-box"/>
+        <span class="">条/页</span>
         <textbox :label="'关键字搜索'" :onPressEnter="getRemoteData" class="search-box"/>
       </div>
       <table class="datatable">
@@ -181,16 +182,28 @@ div.datagrid-container {
     &.toolbar {
       position: relative;
       height: 80px;
-      &>div.pagesize-box {
+      &>div.page-box {
         position: absolute;
         top: 20px;
         left: 0;
-        width: 100px;
+        width: 80px;
       }
       &>div.search-box {
         position: absolute;
         right: 0;
         width: 200px;
+      }
+      &>span {
+        position: absolute;
+        top: 20px;
+        left: 90px;
+        height: 40px;
+        line-height: 40px;
+        color: $color-3;
+        font: {
+          size: 14px;
+          weight: 100;
+        }
       }
     }
     &.pagination {
@@ -209,10 +222,10 @@ div.datagrid-container {
       }
       &>div.pages {
         position: absolute;
-        right: 20px;
+        right: 15px;
         color: $color-5;
-        cursor: pointer;
         &>i {
+          cursor: pointer;
           font: {
             weight: 100;
             style: normal;
