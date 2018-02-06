@@ -1,9 +1,6 @@
 <template>
   <div class="dropbox-container">
-    <label class="aface textbox-label" :class="[[{active: active}]]">{{label}}</label>
-    <input type="text" class="aface textbox-value" v-model="value"
-      @blur="active = !isEmpty(), focus = false"
-      @focus="active = true, focus = true">
+    <label class="dropbox-label">{{options.placeholder}}</label>
     <div class="textbox-underline" :class="[[{active: focus}]]"></div>
   </div>
 </template>
@@ -12,8 +9,15 @@
 export default {
   name: 'dropbox',
   props: {
-    label: String,
-    data: Array
+    options: {
+      type: Object,
+      default: function() {
+        return {
+          placeholder: '请选择',
+          data: []
+        }
+      }
+    }
   },
   data: function() {
     return {
@@ -24,9 +28,6 @@ export default {
     }
   },
   methods: {
-    isEmpty: function() {
-      return this.value === null || this.value === ''
-    }
   }
 }
 </script>
@@ -34,14 +35,17 @@ export default {
 <style lang="scss" scoped>
 div.dropbox-container {
   position: relative;
-  height: 60px;
+  height: 40px;
 
-  label.textbox-label {
+  label.dropbox-label {
     position: absolute;
-    top: 30px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 100;
     color: $color-5;
-    @include transition(300ms);
+    display: block;
 
     font: {
       size: 14px;
@@ -58,20 +62,6 @@ div.dropbox-container {
     }
   }
 
-  input.textbox-value {
-    position: absolute;
-    top: 20px;
-    left: 0;
-    width: 100%;
-    bottom: 0;
-    height: 40px;
-    line-height: 40px;
-    z-index: 150;
-    background: transparent;
-    font-size: 15px;
-    border-bottom: solid 1px $color-c;
-  }
-
   div.textbox-underline {
     position: absolute;
     left: 50%;
@@ -80,7 +70,7 @@ div.dropbox-container {
     height: 2px;
     background-color: $color-c;
     z-index: 200;
-    @include transition(300ms);
+    @include transition($transition-speed);
 
     &.active {
       left: 0;

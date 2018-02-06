@@ -1,21 +1,22 @@
 @mixin buttonStyle($color) {
   background-color: $color;
   &:hover {
-    box-shadow: 0 0 0 3px rgba($color, 0.5);
+    @include higher-shadow($color);
   }
 }
 
 button.aface {
   cursor: pointer;
-  height: 35px;
-  line-height: 35px;
+  height: 40px;
+  line-height: 40px;
   padding: 0 20px;
   border-radius: 3px;
 
-  color: $color-steel-font;
-  background-color: lighten($color-steel, 10%);
+  color: $color-3;
+  background-color: lighten($color-sea, 10%);
 
   &.sea { @include buttonStyle($color-sea) }
   &.grass { @include buttonStyle($color-grass) }
   &.fire { @include buttonStyle($color-fire) }
+  &.sky { @include buttonStyle($color-sky) }
 }

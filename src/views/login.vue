@@ -12,13 +12,11 @@
             <span class="section">系统登录</span>
             <br />
             <span class="section input">
-              <i class="material-icons">account_circle</i>
-              <input id="ac" v-model="ac" @keydown.enter="login" placeholder="账号"/>
+              <textbox ref="ac" :label="'账号'" :onPressEnter="login"/>
             </span>
             <br />
             <span class="section input">
-              <i class="material-icons">lock</i>
-              <input id="pw" v-model="pw" @keydown.enter="login" placeholder="密码"/>
+              <textbox ref="pw" :label="'密码'" :onPressEnter="login"/>
             </span>
           </div>
         </td>
@@ -29,20 +27,13 @@
 
 <script>
 export default {
-  name: 'login',
-  data: function() {
-    return {
-      ac: null,
-      pw: null
-    }
-  },
   methods: {
     login: function() {
       var _vm = this
       _vm.$http.get(_vm.$api.auth.login, {
         params: {
-          ac: _vm.$data.ac,
-          pw: _vm.$data.pw
+          ac: _vm.$refs.ac.getValue(),
+          pw: _vm.$refs.pw.getValue()
         }
       }).then(function(resp) {
         _vm.$store.commit('auth/setToken', resp.data.data)
@@ -59,7 +50,7 @@ $section-size: 50px;
 table {
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom right, darken($color-steel, 5%), darken($color-steel, 15%));
+  // background: linear-gradient(to bottom right, darken($color-sea, 35%), darken($color-sea, 45%));
 }
 td#logo {
   width: 55%;
@@ -76,51 +67,18 @@ td#form {
 }
 div#login-form-container {
   width: 400px;
-  border-left: solid 2px lighten($color-steel, 10%);
+  border-left: solid 2px lighten($color-sea, 10%);
   padding: 60px 20px;
   padding-bottom: 100px;
 
   &>span.section {
     position: relative;
     display: block;
-    height: $section-size;
-    line-height: $section-size;
     font: {
       size: 40px;
       family: 'simhei';
     }
     text-shadow: 2px 2px $color-0;
-
-    &.input {
-      background-color: darken($color-steel, 3%);
-      border-radius: 3px;
-      &>i {
-        display: block;
-        float: left;
-        width: $section-size;
-        height: $section-size;
-        line-height: $section-size;
-        text: {
-          align: center;
-          shadow: 0 4px 4px rgba($color-0, 0.8);
-        }
-        font-size: $section-size / 1.8;
-      }
-      &>input {
-        box-sizing: border-box;
-        position: absolute;
-        left: 0;
-        border: 0;
-        background-color: transparent;
-        padding-left: $section-size;
-        width: 100%;
-        height: $section-size;
-        line-height: $section-size;
-        font-size: $section-size / 3;
-        color: $color-f;
-        outline: none;
-      }
-    }
   }
 }
 </style>

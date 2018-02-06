@@ -2,13 +2,14 @@
   <iconPanel :title="options.title">
     <div class="aface datagrid-container" slot="body">
       <div class="toolbar">
-        <textbox :label="'关键字'" :callbacks="searchboxCallbacks" class="search-box"/>
+        <dropbox :options="defaults.pageSizeBoxOptions" class="pagesize-box"/>
+        <textbox :label="'关键字搜索'" :onPressEnter="getRemoteData" class="search-box"/>
       </div>
       <table class="datatable">
         <thead>
           <th v-if="hasRanking" class="ranking">#</th>
           <th v-if="hasCheckbox" class="checkbox">
-            <checkbox ref="checkAll" @click.native="checkAll()" :isChecked="allChecked"/>
+            <checkbox ref="checkAll" @click.native="checkAll()" :isChecked="isAllChecked"/>
           </th>
           <th v-for="column of getColumns" :key="column.key" class="column none-select"
             @click="setSorter(column.key)"
@@ -28,8 +29,10 @@
         </tbody>
         <tfoot>
           <tr>
-            <td v-if="hasRanking" class="ranking"></td>
-            <td v-if="hasCheckbox" class="checkbox"></td>
+            <td v-if="hasRanking" class="ranking">#</td>
+            <td v-if="hasCheckbox" class="checkbox">
+              <checkbox ref="checkAll" @click.native="checkAll()" :isChecked="isAllChecked"/>
+            </td>
             <td v-for="column of getColumns" :key="column.key">{{column.title}}</td>
           </tr>
         </tfoot>
@@ -55,7 +58,17 @@
 export default {
   name: 'datagrid',
   props: {
-    options: Object
+    options: {
+      type: Object,
+      default: {
+        idKey: 'p_id',
+        url: null,
+        columns: [],
+        sorters: {},
+        hasCheckbox: false,
+        hasRanking: false
+      }
+    }
   },
   data: function() {
     return {
@@ -65,13 +78,14 @@ export default {
         columns: [],
         sorters: {},
         hasCheckbox: false,
-        hasRanking: false
+        hasRanking: false,
+        pageSizeBoxOptions: {
+          placeholder: '请选择',
+          data: [{ text: '10', value: 10 }, { text: '10', value: 10 }, { text: '10', value: 10 }]
+        }
       },
       sorters: {},
-      allChecked: false,
-      searchboxCallbacks: {
-        pressEnter: this.getRemoteData
-      },
+      isAllChecked: false,
       rows: [
         {
           p_id: '1', col1: 'qwe', col2: 'asd', col3: 'zxc'
@@ -145,16 +159,16 @@ export default {
     },
     checkAll: function() {
       var _vm = this
-      _vm.allChecked = !_vm.allChecked
+      _vm.isAllChecked = !_vm.isAllChecked
       _vm.$refs.checkboxes.forEach(checkbox => {
-        checkbox.setIsChecked(_vm.allChecked)
+        checkbox.setIsChecked(_vm.isAllChecked)
       })
     },
     checkOne: function(index) {
       var _vm = this
       _vm.$refs.checkboxes.some(checkbox => {
-        _vm.allChecked = checkbox.getIsChecked()
-        return !_vm.allChecked
+        _vm.isAllChecked = checkbox.getIsChecked()
+        return !_vm.isAllChecked
       })
     }
   }
@@ -162,12 +176,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$shadow-sky: 0 4px 20px 0px rgba(136, 69, 69, 0.14), 0 7px 10px -5px rgba($color-sky, 0.4);
 div.datagrid-container {
   &>div {
     &.toolbar {
       position: relative;
       height: 80px;
+      &>div.pagesize-box {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 100px;
+      }
       &>div.search-box {
         position: absolute;
         right: 0;
@@ -178,7 +197,7 @@ div.datagrid-container {
       height: 50px;
       &>div.infos {
         position: absolute;
-        left: 15px;
+        left: 20px;
         height: 50px;
         line-height: 70px;
         color: $color-5;
@@ -190,7 +209,7 @@ div.datagrid-container {
       }
       &>div.pages {
         position: absolute;
-        right: 15px;
+        right: 20px;
         color: $color-5;
         cursor: pointer;
         &>i {
@@ -217,7 +236,7 @@ div.datagrid-container {
           &.active {
             color: $color-f;
             background-color: $color-sky;
-            box-shadow: $shadow-sky;
+            @include higher-shadow($color-sky);
           }
           &.material-icons {
             font-size: 24px;
@@ -297,17 +316,19 @@ div.datagrid-container {
         color: $color-3;
         font: {
           size: 13px;
-          weight: 600;
+          weight: 100;
           family: $font-family;
         }
         &.checkbox, &.ranking {
-          min-width: 50px;
+          min-width: 60px;
+        }
+        &.ranking {
+          font-size: 20px;
           text-align: center;
-          font: {
-            size: 20px;
-            weight: 100;
-            family: $font-family;
-          }
+        }
+        &.checkbox {
+          font-size: 0;
+          text-align: left;
         }
       }
     }

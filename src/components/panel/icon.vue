@@ -72,9 +72,9 @@ div.icon-panel {
     z-index: 100;
     padding: {
       top: 60px;
-      left: 15px;
-      right: 15px;
-      bottom: 15px;
+      left: 25px;
+      right: 25px;
+      bottom: 25px;
     }
   }
 }

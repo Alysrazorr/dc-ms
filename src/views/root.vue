@@ -87,7 +87,7 @@ div#sidebar-shadow {
   width: 10px;
   bottom: 10px;
   box-shadow: 0 0 20px rgba(178,178,178, 0.7);
-  transition: left 300ms;
+  transition: left $transition-speed;
 
   &.active {
     left: $sidebar-width-collapsed - 10px;
@@ -103,7 +103,7 @@ nav#sidebar {
   overflow: auto;
   padding: 20px;
   background-color: $sidebar-bg;
-  transition: width 300ms;
+  transition: width $transition-speed;
   overflow: hidden;
   z-index: 110;
 
@@ -115,7 +115,6 @@ nav#sidebar {
       }
       .title {
         opacity: 1 !important;
-        padding-left: 40px !important;
       }
       &.menu>div.title-container {
         width: $sidebar-width - 30px !important;
@@ -135,10 +134,11 @@ nav#sidebar {
     @include zero;
     position: absolute;
     width: $sidebar-width - 30px;
-    top: 140px;
+    top: 100px;
     left: 15px;
     bottom: 15px;
     overflow: hidden;
+
     ul, li {
       @include zero;
       list-style-type: none;
@@ -146,11 +146,11 @@ nav#sidebar {
     }
     li {
       overflow: hidden;
-      @include transition(300ms);
+      @include transition($transition-speed);
 
       &>div.title-container {
         width: $menu-item-height;
-        transition: width 300ms;
+        transition: width $transition-speed;
       }
 
       &.menu {
@@ -161,10 +161,10 @@ nav#sidebar {
 
         &.active {
           &>div.title-container {
+            @include higher-shadow($color-sea);
             background-color: $color-sea;
             &>* { color: $color-f !important; }
             &>i.arrow { transform: rotate(90deg); }
-            &>.title { box-shadow: 0 5px 15px rgba($color-sea, 0.5); }
           }
         }
       }
@@ -173,23 +173,23 @@ nav#sidebar {
         &>div.title-container {
           &>i { font-size: 26px; }
           font-size: 13px;
-          transition: margin-left 300ms, width 300ms;
+          transition: margin-left $transition-speed, width $transition-speed;
         }
         
         &.active {
           &>div.title-container {
             background-color: $color-sky;
             &>* { color: $color-f !important; }
-            &>.title { box-shadow: 0 5px 15px rgba($color-sky, 0.5); }
           }
         }
       }
     }
+
     div.title-container {
       position: relative;
       height: $menu-item-height;
       line-height: $menu-item-height;
-      border-radius: 2px;
+      border-radius: 3px;
       padding-left: $menu-item-height;
       cursor: pointer;
 
@@ -210,18 +210,16 @@ nav#sidebar {
           opacity: 0;
           font-size: 20px !important;
           border-radius: 9999px;
-          @include transition(300ms);
+          @include transition($transition-speed);
         }
       }
 
       &>.title {
         position: absolute;
-        left: 10px;
-        right: 10px;
         height: $menu-item-height;
         z-index: 100;
         opacity: 0;
-        transition: opacity 300ms, padding-left 300ms;
+        transition: opacity $transition-speed, padding-left $transition-speed;
       }
 
       &:hover {
@@ -232,7 +230,7 @@ nav#sidebar {
 
   &>div {
     &#user-info {
-      height: 100px;
+      height: 60px;
       &>div#user-avatar {
         @include clearfix;
         &>img {
@@ -263,7 +261,7 @@ header#navi {
   padding-left: $sidebar-width + 30px;
   height: 80px;
   line-height: 80px;
-  transition: padding-left 300ms;
+  transition: padding-left $transition-speed;
 
   &.active {
     padding-left: $sidebar-width-collapsed + 30px;
@@ -286,7 +284,7 @@ header#navi {
     font-size: 30px;
 
     box-shadow: 0 5px 15px rgba($color-0, 0.2);
-    transition: box-shadow 300ms;
+    transition: box-shadow $transition-speed;
 
     &:hover {
       box-shadow: 0 10px 25px rgba($color-0, 0.2);
@@ -296,7 +294,7 @@ header#navi {
   &>span#location {
     position: absolute;
     left: $sidebar-width-collapsed + 275px;
-    transition: left 300ms;
+    transition: left $transition-speed;
     font: {
       size: 32px;
       weight: 100;
@@ -307,7 +305,7 @@ header#navi {
 div#main-panel {
   position: relative;
   padding-left: $sidebar-width + 15px;
-  transition: padding-left 300ms;
+  transition: padding-left $transition-speed;
   z-index: 100;
 
   &.active {
@@ -319,7 +317,7 @@ footer#copyright {
   position: relative;
   height: 80px;
   line-height: 80px;
-  transition: padding-left 300ms;
+  transition: padding-left $transition-speed;
   padding-left: $sidebar-width + 30px;
   color: $color-5;
 
@@ -332,4 +330,5 @@ footer#copyright {
     padding-left: $sidebar-width-collapsed + 35px;
   }
 }
+
 </style>

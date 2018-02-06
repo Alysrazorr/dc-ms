@@ -22,15 +22,11 @@ $color-apple: rgb(77,150,110);
 $color-orange: #f0ad4e;
 $color-fire: rgb(220,97,65);
 
-$color-steel: rgb(45,48,55);
-$color-steel-font: lighten($color-steel, 60%);
+$color-active: $color-sky;
 
-// $color-primary: #428bca;
-// $color-success: #5cb85c;
-// $color-warning: #f0ad4e;
-// $color-info: #5bc0de;
-// $color-info: rgb(91, 212, 222);
-// $color-danger: #d9534f;
+@mixin higher-shadow($color) {
+    box-shadow: 0 4px 20px 0px rgba(136, 69, 69, 0.14), 0 7px 10px -5px rgba($color, 0.4);
+}
 
 $font-size: 14px;
 $font-family: 'Microsoft YaHei', 'simhei', 'Times New Roman';
@@ -163,7 +159,7 @@ $font-color: $color-9;
 *::-webkit-scrollbar-thumb {
     border-radius: 999px;
     border: solid 1px $color-0;
-    background-color: lighten($color-steel, 10%)
+    background-color: lighten($color-sea, 10%)
 }
 
 .slide-y-enter-active {

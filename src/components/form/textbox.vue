@@ -4,7 +4,7 @@
     <input type="text" class="aface textbox-value" v-model="value"
       @blur="active = !isEmpty, focus = false"
       @focus="active = true, focus = true"
-      @keypress.enter="callbacks.pressEnter">
+      @keypress.enter="onPressEnter">
     <div class="textbox-underline" :class="[[{active: focus}]]"></div>
   </div>
 </template>
@@ -13,9 +13,13 @@
 export default {
   name: 'textbox',
   props: {
-    label: String,
-    callbacks: {
-      pressEnter: Function
+    label: {
+      type: String,
+      default: null
+    },
+    onPressEnter: {
+      type: Function,
+      default: function() { console.log('textbox.onPressEnter.default') }
     }
   },
   data: function() {
@@ -28,6 +32,11 @@ export default {
   computed: {
     isEmpty: function() {
       return this.value === null || this.value === ''
+    }
+  },
+  methods: {
+    getValue: function() {
+      return this.value
     }
   }
 }
@@ -43,7 +52,7 @@ div.textbox-container {
     top: 30px;
     z-index: 100;
     color: $color-5;
-    @include transition(300ms);
+    @include transition($transition-speed);
 
     font: {
       size: 14px;
@@ -82,7 +91,7 @@ div.textbox-container {
     height: 2px;
     background-color: $color-c;
     z-index: 200;
-    @include transition(300ms);
+    @include transition($transition-speed);
 
     &.active {
       left: 0;
