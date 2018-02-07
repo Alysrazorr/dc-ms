@@ -1,6 +1,6 @@
 <template>
-  <div class="checkbox-container none-select" :class="[{active: checked}]" @click="checked = !checked">
-    <i class="material-icons">{{checked ? 'done' : ''}}</i>
+  <div class="checkbox-container none-select" :class="[{active: isChecked}]" @click="isChecked = !isChecked">
+    <i class="material-icons">{{isChecked ? 'done' : ''}}</i>
   </div>
 </template>
 
@@ -8,36 +8,24 @@
 export default {
   name: 'checkbox',
   props: {
-    isChecked: {
+    defaultChecked: {
       type: Boolean,
       default: false
+    },
+    id: {
+      type: String,
+      default: null
     }
   },
   data: function() {
     return {
-      checked: null
+      isChecked: null
     }
   },
   watch: {
-    isChecked: function(v) {
-      this.checked = v
+    defaultChecked: function(v) {
+      this.isChecked = v
     }
-  },
-  computed: {
-    id: function() {
-      return this.id
-    }
-  },
-  methods: {
-    getIsChecked: function() {
-      return this.checked
-    },
-    setIsChecked: function(checked) {
-      this.checked = checked
-    }
-  },
-  mounted: function() {
-    this.checked = this.$props.isChecked
   }
 }
 </script>

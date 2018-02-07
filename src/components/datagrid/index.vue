@@ -2,7 +2,7 @@
   <iconPanel :title="options.title">
     <div class="aface datagrid-container" slot="body">
       <div class="toolbar">
-        <dropbox :options="defaults.pageSizeBoxOptions" class="page-box"/>
+        <dropbox :options="pageSizeBoxOptions" class="page-box"/>
         <span class="">条/页</span>
         <textbox :label="'关键字搜索'" :onPressEnter="getRemoteData" class="search-box"/>
       </div>
@@ -10,7 +10,7 @@
         <thead>
           <th v-if="hasRanking" class="ranking">#</th>
           <th v-if="hasCheckbox" class="checkbox">
-            <checkbox ref="checkAll" @click.native="checkAll()" :isChecked="isAllChecked"/>
+            <checkbox ref="checkAll" @click.native="checkAll()" :defaultChecked="isAllChecked"/>
           </th>
           <th v-for="column of getColumns" :key="column.key" class="column none-select"
             @click="setSorter(column.key)"
@@ -23,7 +23,9 @@
           <tr v-for="(row, index) in rows" :key="row[options.idKey ? options.idKey : defaults.idKey]">
             <td v-if="hasRanking" class="ranking">{{getRanking(index)}}</td>
             <td v-if="hasCheckbox" class="checkbox">
-              <checkbox ref="checkboxes" @click.native="checkOne(index)"/>
+              <checkbox ref="checkboxes"
+                :id="row[options.idKey ? options.idKey : defaults.idKey]"
+                @click.native="checkOne(index)"/>
             </td>
             <td v-for="column of getColumns" :key="column.key">{{row[column.key]}}</td>
           </tr>
@@ -32,7 +34,7 @@
           <tr>
             <td v-if="hasRanking" class="ranking">#</td>
             <td v-if="hasCheckbox" class="checkbox">
-              <checkbox ref="checkAll" @click.native="checkAll()" :isChecked="isAllChecked"/>
+              <checkbox ref="checkAll" @click.native="checkAll()" :defaultChecked="isAllChecked"/>
             </td>
             <td v-for="column of getColumns" :key="column.key">{{column.title}}</td>
           </tr>
@@ -61,14 +63,7 @@ export default {
   props: {
     options: {
       type: Object,
-      default: {
-        idKey: 'p_id',
-        url: null,
-        columns: [],
-        sorters: {},
-        hasCheckbox: false,
-        hasRanking: false
-      }
+      default: {}
     }
   },
   data: function() {
@@ -82,20 +77,33 @@ export default {
         hasRanking: false,
         pageSizeBoxOptions: {
           placeholder: '请选择',
-          data: [{ text: '10', value: 10 }, { text: '10', value: 10 }, { text: '10', value: 10 }]
+          data: [{ text: '10', value: 10 }, { text: '20', value: 20 }, { text: '50', value: 50 }]
+        },
+        pagination: {
+          currPage: 1,
+          pageSize: 20,
+          totalPages: null,
+          totalResults: null
         }
       },
-      sorters: {},
-      isAllChecked: false,
-      rows: [
-        {
-          p_id: '1', col1: 'qwe', col2: 'asd', col3: 'zxc'
-        }, {
-          p_id: '2', col1: 'qwe', col2: 'asd', col3: 'zxc'
-        }, {
-          p_id: '3', col1: 'qwe', col2: 'asd', col3: 'zxc'
+      currents: {
+        idKey: 'p_id',
+        url: null,
+        columns: [],
+        sorters: {},
+        hasCheckbox: false,
+        hasRanking: false,
+        pageSizeBoxOptions: {
+          placeholder: '请选择',
+          data: [{ text: '10', value: 10 }, { text: '20', value: 20 }, { text: '50', value: 50 }]
+        },
+        pagination: {
+          currPage: 1,
+          pageSize: 20,
+          totalPages: null,
+          totalResults: null
         }
-      ]
+      }
     }
   },
   computed: {
@@ -143,8 +151,8 @@ export default {
     getCheckedRowIds: function() {
       var ids = []
       this.$refs.checkboxes.forEach(checkbox => {
-        if (checkbox.getIsChecked()) {
-          ids.push(checkbox.get)
+        if (checkbox.isChecked) {
+          ids.push(checkbox.id)
         }
       })
       return ids
@@ -152,7 +160,7 @@ export default {
     getCheckedRows: function() {
       var rows = []
       this.$refs.checkboxed.forEach(checkbox => {
-        if (checkbox.getIsChecked()) {
+        if (checkbox.isChecked) {
           rows.push(checkbox)
         }
       })
@@ -162,13 +170,13 @@ export default {
       var _vm = this
       _vm.isAllChecked = !_vm.isAllChecked
       _vm.$refs.checkboxes.forEach(checkbox => {
-        checkbox.setIsChecked(_vm.isAllChecked)
+        checkbox.isChecked = _vm.isAllChecked
       })
     },
     checkOne: function(index) {
       var _vm = this
       _vm.$refs.checkboxes.some(checkbox => {
-        _vm.isAllChecked = checkbox.getIsChecked()
+        _vm.isAllChecked = checkbox.isChecked
         return !_vm.isAllChecked
       })
     }
