@@ -3,7 +3,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-6">
-          <datagrid ref="dg" :options="datagrid"></datagrid>
+          <datagrid ref="dg"
+            :title="datagrid.title"
+            :columns="datagrid.columns"
+            :url="datagrid.url" />
         </div>
         <div class="col-6">
           <iconPanel :title="'测试表单'" :iconfont="'format_list_numbered'">
@@ -61,7 +64,7 @@ export default {
   data: function() {
     return {
       datagrid: {
-        title: '数据表格',
+        title: '数据表格asdf',
         hasCheckbox: true,
         hasRanking: true,
         url: '/auth/urlPermission/getList',

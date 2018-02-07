@@ -1,8 +1,8 @@
 <template>
-  <iconPanel :title="options.title">
+  <iconPanel :title="title">
     <div class="aface datagrid-container" slot="body">
       <div class="toolbar">
-        <dropbox :options="pageSizeBoxOptions" class="page-box"/>
+        <dropbox :options="pageSizeDropbox" class="page-box"/>
         <span class="">条/页</span>
         <textbox :label="'关键字搜索'" :onPressEnter="getRemoteData" class="search-box"/>
       </div>
@@ -12,7 +12,7 @@
           <th v-if="hasCheckbox" class="checkbox">
             <checkbox ref="checkAll" @click.native="checkAll()" :defaultChecked="isAllChecked"/>
           </th>
-          <th v-for="column of getColumns" :key="column.key" class="column none-select"
+          <th v-for="column of columns" :key="column.key" class="column none-select"
             @click="setSorter(column.key)"
             v-bind:style="{width: column.width}">
             <span>{{column.title}}</span>
@@ -20,14 +20,14 @@
           </th>
         </thead>
         <tbody>
-          <tr v-for="(row, index) in rows" :key="row[options.idKey ? options.idKey : defaults.idKey]">
+          <tr v-if="rows" v-for="(row, index) in rows" :key="row[idKey]">
             <td v-if="hasRanking" class="ranking">{{getRanking(index)}}</td>
             <td v-if="hasCheckbox" class="checkbox">
               <checkbox ref="checkboxes"
-                :id="row[options.idKey ? options.idKey : defaults.idKey]"
+                :id="row[idKey]"
                 @click.native="checkOne(index)"/>
             </td>
-            <td v-for="column of getColumns" :key="column.key">{{row[column.key]}}</td>
+            <td v-for="column of columns" :key="column.key">{{row[column.key]}}</td>
           </tr>
         </tbody>
         <tfoot>
@@ -36,7 +36,7 @@
             <td v-if="hasCheckbox" class="checkbox">
               <checkbox ref="checkAll" @click.native="checkAll()" :defaultChecked="isAllChecked"/>
             </td>
-            <td v-for="column of getColumns" :key="column.key">{{column.title}}</td>
+            <td v-for="column of columns" :key="column.key">{{column.title}}</td>
           </tr>
         </tfoot>
       </table>
@@ -61,43 +61,47 @@
 export default {
   name: 'datagrid',
   props: {
-    options: {
+    title: {
+      type: String,
+      default: '数据表格'
+    },
+    idKey: {
+      type: String,
+      default: 'p_id'
+    },
+    url: {
+      type: String,
+      default: null
+    },
+    columns: {
+      type: Array,
+      default: undefined
+    },
+    hasCheckbox: {
+      type: Boolean,
+      default: true
+    },
+    isAllChecked: {
+      type: Boolean,
+      default: false
+    },
+    hasRanking: {
+      type: Boolean,
+      default: true
+    },
+    pageSizeDropbox: {
       type: Object,
-      default: {}
-    }
-  },
-  data: function() {
-    return {
-      defaults: {
-        idKey: 'p_id',
-        url: null,
-        columns: [],
-        sorters: {},
-        hasCheckbox: false,
-        hasRanking: false,
-        pageSizeBoxOptions: {
+      default: function() {
+        return {
           placeholder: '请选择',
           data: [{ text: '10', value: 10 }, { text: '20', value: 20 }, { text: '50', value: 50 }]
-        },
-        pagination: {
-          currPage: 1,
-          pageSize: 20,
-          totalPages: null,
-          totalResults: null
         }
-      },
-      currents: {
-        idKey: 'p_id',
-        url: null,
-        columns: [],
-        sorters: {},
-        hasCheckbox: false,
-        hasRanking: false,
-        pageSizeBoxOptions: {
-          placeholder: '请选择',
-          data: [{ text: '10', value: 10 }, { text: '20', value: 20 }, { text: '50', value: 50 }]
-        },
-        pagination: {
+      }
+    },
+    pagination: {
+      type: Object,
+      default: function() {
+        return {
           currPage: 1,
           pageSize: 20,
           totalPages: null,
@@ -106,21 +110,16 @@ export default {
       }
     }
   },
-  computed: {
-    getColumns: function() {
-      return this.options.columns
-    },
-    hasCheckbox: function() {
-      return typeof this.options.hasCheckbox === 'undefined' ? this.defaults.hasChecbox : this.options.hasCheckbox
-    },
-    hasRanking: function() {
-      return typeof this.options.hasRanking === 'undefined' ? this.defaults.hasRanking : this.options.hasRanking
+  data: function() {
+    return {
+      sorts: [],
+      rows: []
     }
   },
   methods: {
     getRemoteData: function() {
       var _vm = this
-      var url = _vm.options.url
+      var url = _vm.url
       if (typeof url === 'undefined') {
         return
       }
@@ -129,21 +128,21 @@ export default {
       })
     },
     setSorter: function(title) {
-      if (typeof this.sorters[title] === 'undefined') {
-        this.$set(this.sorters, title, 'asc')
+      if (typeof this.sorts[title] === 'undefined') {
+        this.$set(this.sorts, title, 'asc')
         return
       }
-      if (this.sorters[title] === 'asc') {
-        this.sorters[title] = 'desc'
+      if (this.sorts[title] === 'asc') {
+        this.sorts[title] = 'desc'
         return
       }
-      if (this.sorters[title] === 'desc') {
-        this.sorters[title] = undefined
+      if (this.sorts[title] === 'desc') {
+        this.sorts[title] = undefined
         return
       }
     },
     getSorter: function(title) {
-      return this.sorters[title] ? this.sorters[title] === 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' : null
+      return this.sorts[title] ? this.sorts[title] === 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' : null
     },
     getRanking: function(index) {
       return index + 1
@@ -180,6 +179,8 @@ export default {
         return !_vm.isAllChecked
       })
     }
+  },
+  mounted: function() {
   }
 }
 </script>

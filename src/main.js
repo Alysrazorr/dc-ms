@@ -3,7 +3,8 @@ import App from './App'
 import axios from './axios'
 import store from './store'
 import router from './router'
-import collection from './utils/collection'
+import collectionUtils from './utils/collection'
+import objectUtils from './utils/object'
 import api from './api'
 
 import tree from '@/components/tree'
@@ -15,7 +16,10 @@ import checkbox from '@/components/form/checkbox'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
-Vue.prototype.$a2t = collection.a2t
+Vue.prototype.$a2t = collectionUtils.a2t
+Vue.prototype.$extendObj = objectUtils.extend
+Vue.prototype.$isPlainObj = objectUtils.isPlainObject
+Vue.prototype.$isEmptyObj = objectUtils.isEmptyObject
 Vue.prototype.$api = api
 
 Vue.component('tree', tree)
