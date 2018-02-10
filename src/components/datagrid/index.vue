@@ -23,7 +23,7 @@
           <th 
             class="column none-select"
             v-for="column of columns" :key="column.key"
-            v-bind:style="{width: column.width}"
+            :style="{width: column.width}"
             @click="setSorter(column.key)">
             <span>{{column.title}}</span>
             <i class="material-icons sort">{{getSorter(column.key)}}</i>
@@ -195,6 +195,14 @@ export default {
         return !_vm.isAllChecked
       })
     }
+  },
+  mounted: function() {
+    var _vm = this
+    _vm.$nextTick(function() {
+      if (_vm.url) {
+        _vm.getRemoteData()
+      }
+    })
   }
 }
 </script>

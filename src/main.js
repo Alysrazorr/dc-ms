@@ -14,11 +14,11 @@ import textbox from '@/components/form/textbox'
 import dropbox from '@/components/form/dropbox'
 import checkbox from '@/components/form/checkbox'
 import modal from '@/components/modal'
-import errorBox from '@/components/messageBoxes/errorBox'
-import infoBox from '@/components/messageBoxes/infoBox'
-import successBox from '@/components/messageBoxes/successBox'
-import questionBox from '@/components/messageBoxes/questionBox'
-import warningBox from '@/components/messageBoxes/warningBox'
+import errorBox from '@/components/alert/errorBox'
+import infoBox from '@/components/alert/infoBox'
+import successBox from '@/components/alert/successBox'
+import confirmBox from '@/components/alert/confirmBox'
+import warningBox from '@/components/alert/warningBox'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
@@ -38,7 +38,7 @@ Vue.component('modal', modal)
 Vue.component('errorBox', errorBox)
 Vue.component('infoBox', infoBox)
 Vue.component('successBox', successBox)
-Vue.component('questionBox', questionBox)
+Vue.component('confirmBox', confirmBox)
 Vue.component('warningBox', warningBox)
 
 /* eslint-disable */

@@ -1,12 +1,12 @@
 <template>
   <modal
     :containerWidth="containerWidth">
-    <div slot="header" class="swal2-icon swal2-question" style="display: flex;">
+    <div slot="header" class="swal2-icon swal2-confirm" style="display: flex;">
       <span class="swal2-animate-y-mark">?</span>
     </div>
     <div class="body" slot="body">{{message}}</div>
     <div class="footer" slot="footer">
-      <button class="aface" @click="$emit('ok')">确认</button>
+      <button class="aface" @click="$emit('confirm')">确认</button>
       <button class="aface fire" @click="$emit('close')">取消</button>
     </div>
   </modal>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'errorBox',
+  name: 'confirmBox',
   props: {
     message: {
       type: String,
@@ -34,9 +34,5 @@ div {
       weight: 400;
     }
   }
-  &.footer {
-
-  }
 }
 </style>
-
