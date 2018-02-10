@@ -2,28 +2,44 @@
   <iconPanel :title="title">
     <div class="aface datagrid-container" slot="body">
       <div class="toolbar">
-        <dropbox :options="pageSizeDropbox" class="page-box"/>
+        <dropbox
+          class="page-box"
+          :options="pageSizeDropbox"/>
         <span class="">条/页</span>
-        <textbox :label="'关键字搜索'" :onPressEnter="getRemoteData" class="search-box"/>
+        <textbox
+          class="search-box"
+          :label="'关键字搜索'"
+          :onPressEnter="getRemoteData"/>
       </div>
       <table class="datatable">
         <thead>
           <th v-if="hasRanking" class="ranking">#</th>
           <th v-if="hasCheckbox" class="checkbox">
-            <checkbox ref="checkAll" @click.native="checkAll()" :defaultChecked="isAllChecked"/>
+            <checkbox
+              ref="checkAll"
+              @click.native="checkAll()"
+              :defaultChecked="isAllChecked"/>
           </th>
-          <th v-for="column of columns" :key="column.key" class="column none-select"
-            @click="setSorter(column.key)"
-            v-bind:style="{width: column.width}">
+          <th 
+            class="column none-select"
+            v-for="column of columns" :key="column.key"
+            v-bind:style="{width: column.width}"
+            @click="setSorter(column.key)">
             <span>{{column.title}}</span>
             <i class="material-icons sort">{{getSorter(column.key)}}</i>
           </th>
         </thead>
         <tbody>
-          <tr v-if="rows" v-for="(row, index) in rows" :key="row[idKey]">
-            <td v-if="hasRanking" class="ranking">{{getRanking(index)}}</td>
-            <td v-if="hasCheckbox" class="checkbox">
-              <checkbox ref="checkboxes"
+          <tr
+            v-if="rows" v-for="(row, index) in rows" :key="row[idKey]">
+            <td
+              class="ranking"
+              v-if="hasRanking">{{getRanking(index)}}</td>
+            <td
+              class="checkbox"
+              v-if="hasCheckbox">
+              <checkbox
+                ref="checkboxes"
                 :id="row[idKey]"
                 @click.native="checkOne(index)"/>
             </td>
@@ -32,10 +48,8 @@
         </tbody>
         <tfoot>
           <tr>
-            <td v-if="hasRanking" class="ranking">#</td>
-            <td v-if="hasCheckbox" class="checkbox">
-              <checkbox ref="checkAll" @click.native="checkAll()" :defaultChecked="isAllChecked"/>
-            </td>
+            <td v-if="hasRanking" class="ranking"></td>
+            <td v-if="hasCheckbox" class="checkbox"></td>
             <td v-for="column of columns" :key="column.key">{{column.title}}</td>
           </tr>
         </tfoot>
@@ -81,10 +95,6 @@ export default {
       type: Boolean,
       default: true
     },
-    isAllChecked: {
-      type: Boolean,
-      default: false
-    },
     hasRanking: {
       type: Boolean,
       default: true
@@ -97,23 +107,20 @@ export default {
           data: [{ text: '10', value: 10 }, { text: '20', value: 20 }, { text: '50', value: 50 }]
         }
       }
-    },
-    pagination: {
-      type: Object,
-      default: function() {
-        return {
-          currPage: 1,
-          pageSize: 20,
-          totalPages: null,
-          totalResults: null
-        }
-      }
     }
   },
   data: function() {
     return {
+      isAllChecked: false,
       sorts: [],
-      rows: []
+      rows: [],
+      querys: {},
+      pagination: {
+        currPage: 1,
+        pageSize: 10,
+        totalPages: null,
+        totalRecords: null
+      }
     }
   },
   methods: {
@@ -123,7 +130,13 @@ export default {
       if (typeof url === 'undefined') {
         return
       }
-      _vm.$http.post(url, _vm.getCheckedRowIds()).then((resp) => {
+      console.log(_vm.sorts)
+      _vm.$http.post(url, {
+        sorts: _vm.sorts,
+        pagination: _vm.pagination,
+        querys: _vm.querys
+      }).then((resp) => {
+        _vm.rows = resp.data.data
         console.log(resp)
       })
     },
@@ -168,6 +181,9 @@ export default {
     checkAll: function() {
       var _vm = this
       _vm.isAllChecked = !_vm.isAllChecked
+      if (!_vm.$refs.checkboxes) {
+        return
+      }
       _vm.$refs.checkboxes.forEach(checkbox => {
         checkbox.isChecked = _vm.isAllChecked
       })
@@ -179,8 +195,6 @@ export default {
         return !_vm.isAllChecked
       })
     }
-  },
-  mounted: function() {
   }
 }
 </script>

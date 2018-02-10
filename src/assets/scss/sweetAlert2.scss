@@ -1,0 +1,400 @@
+$swal2-white:       #fff !default;
+$swal2-black:       #000 !default;
+$swal2-transparent: rgba($swal2-black, 0) !default;
+$swal2-box-shadow:  #d9d9d9 !default;
+$swal2-success:        #a5dc86 !default;
+$swal2-success-border: rgba($swal2-success, .2) !default;
+$swal2-error:          #f27474 !default;
+$swal2-warning:        #f8bb86 !default;
+$swal2-info:           #3fc3ee !default;
+$swal2-question:       #87adbd !default;
+
+$swal2-backdrop:       rgba($swal2-black, .4) !default;
+
+$swal2-background-color: $swal2-white !default;
+
+$swal2-title-color:    lighten($swal2-black, 35) !default;
+$swal2-content-color:  lighten($swal2-black, 33) !default;
+$swal2-footer-color:   lighten($swal2-black, 33) !default;
+
+$swal2-close-button:               lighten($swal2-black, 80) !default;
+$swal2-close-button-hover:         #d55 !default;
+
+$swal2-input-border:               lighten($swal2-black, 85) !default;
+$swal2-input-border-focus:         #b4dbed !default;
+$swal2-input-box-shadow:           rgba($swal2-black, .06) !default;
+$swal2-input-box-shadow-focus:     #c4e6f5 !default;
+
+$swal2-validationerror-background: #ea7d7d !default;
+$swal2-validationerror-color:      $swal2-white !default;
+
+$swal2-focus-outline: rgba(50, 100, 150, .4) !default;
+
+$swal2-button-darken-hover: rgba($swal2-black, .1) !default;
+$swal2-button-darken-active: rgba($swal2-black, .2) !default;
+
+$swal2-footer-border-color: #eee !default;
+
+$swal2-font: inherit !default;
+$swal2-font-size: 1rem !default;
+
+$swal2-width: 32em !default;
+$swal2-toast-width: auto !default;
+
+$swal2-padding: 1.25em !default;
+$swal2-toast-padding: .625em !default;
+
+$swal2-title-font-size: 1.875em !default;
+$swal2-content-font-size: 1.125em !default;
+$swal2-input-font-size: 1.125em !default;
+$swal2-validation-font-size: 1em !default;
+$swal2-footer-font-size: 1em !default;
+
+$swal2-toast-title-font-size: 1em !default;
+$swal2-toast-content-font-size: 1em !default;
+$swal2-toast-input-font-size: 1em !default;
+$swal2-toast-validation-font-size: 1em !default;
+$swal2-toast-buttons-font-size: 1em !default;
+
+$swal2-close-button-size: 2.5em !default;
+
+$swal2-progress-steps-distance: 2.5em !default;
+
+// CONFIRM BUTTON
+$swal2-confirm-button-border: 0 !default;
+$swal2-confirm-button-border-radius: .25em !default;
+$swal2-confirm-button-background-color: #3085d6 !default;
+$swal2-confirm-button-color: $swal2-white !default;
+$swal2-confirm-button-font-size: 1.0625em !default;
+
+// CANCEL BUTTON
+$swal2-cancel-button-border: 0 !default;
+$swal2-cancel-button-border-radius: .25em !default;
+$swal2-cancel-button-background-color: #aaa !default;
+$swal2-cancel-button-color: $swal2-white !default;
+$swal2-cancel-button-font-size: 1.0625em !default;
+
+.swal2-icon {
+    position: relative;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 1.25em auto 1.875em;
+    border: 4px solid transparent;
+    border-radius: 50%;
+    line-height: 80px;
+    cursor: default;
+    box-sizing: content-box;
+    user-select: none;
+  
+    &.swal2-error {
+      border-color: $swal2-error;
+  
+      .swal2-x-mark {
+        position: relative;
+        flex-grow: 1;
+      }
+  
+      [class^='swal2-x-mark-line'] {
+        display: block;
+        position: absolute;
+        top: 37px;
+        width: 47px;
+        height: 5px;
+        border-radius: 2px;
+        background-color: $swal2-error;
+  
+        &[class$='left'] {
+          left: 17px;
+          transform: rotate(45deg);
+        }
+  
+        &[class$='right'] {
+          right: 16px;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  
+    &.swal2-warning,
+    &.swal2-info,
+    &.swal2-question {
+      margin: .333333em auto .5em;
+      font-family: $swal2-font;
+      font-size: 3.75em;
+    }
+  
+    &.swal2-warning {
+      border-color: lighten($swal2-warning, 7);
+      color: $swal2-warning;
+      &>.swal2-animate-y-mark {
+        color: $swal2-warning;
+      }
+    }
+  
+    &.swal2-info {
+      border-color: lighten($swal2-info, 20);
+      color: $swal2-info;
+      &>.swal2-animate-y-mark {
+        color: $swal2-info;
+      }
+    }
+  
+    &.swal2-question {
+      border-color: lighten($swal2-question, 20);
+      color: $swal2-question;
+      &>.swal2-animate-y-mark {
+        color: $swal2-question;
+      }
+    }
+  
+    &.swal2-success {
+      border-color: $swal2-success;
+  
+      [class^='swal2-success-circular-line'] { // Emulate moving circular line
+        position: absolute;
+        width: 60px;
+        height: 120px;
+        transform: rotate(45deg);
+        border-radius: 50%;
+  
+        &[class$='left'] {
+          top: -7px;
+          left: -33px;
+          transform: rotate(-45deg);
+          transform-origin: 60px 60px;
+          border-radius: 120px 0 0 120px;
+        }
+  
+        &[class$='right'] {
+          top: -11px;
+          left: 30px;
+          transform: rotate(-45deg);
+          transform-origin: 0 60px;
+          border-radius: 0 120px 120px 0;
+        }
+      }
+  
+      .swal2-success-ring { // Ring
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        width: 80px;
+        height: 80px;
+        border: 4px solid $swal2-success-border;
+        border-radius: 50%;
+        z-index: 2;
+        box-sizing: content-box;
+      }
+  
+      .swal2-success-fix { // Hide corners left from animation
+        position: absolute;
+        top: 8px;
+        left: 26px;
+        width: 7px;
+        height: 90px;
+        transform: rotate(-45deg);
+        z-index: 1;
+      }
+  
+      [class^='swal2-success-line'] {
+        display: block;
+        position: absolute;
+        height: 5px;
+        border-radius: 2px;
+        background-color: $swal2-success;
+        z-index: 2;
+  
+        &[class$='tip'] {
+          top: 46px;
+          left: 14px;
+          width: 25px;
+          transform: rotate(45deg);
+        }
+  
+        &[class$='long'] {
+          top: 38px;
+          right: 8px;
+          width: 47px;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  // Success icon animation
+
+@keyframes animate-success-tip {
+  0% {
+    top: 19px;
+    left: 1px;
+    width: 0;
+  }
+
+  54% {
+    top: 17px;
+    left: 2px;
+    width: 0;
+  }
+
+  70% {
+    top: 35px;
+    left: -6px;
+    width: 50px;
+  }
+
+  84% {
+    top: 48px;
+    left: 21px;
+    width: 17px;
+  }
+
+  100% {
+    top: 45px;
+    left: 14px;
+    width: 25px;
+  }
+}
+
+@keyframes animate-success-long {
+  0% {
+    top: 54px;
+    right: 46px;
+    width: 0;
+  }
+
+  65% {
+    top: 54px;
+    right: 46px;
+    width: 0;
+  }
+
+  84% {
+    top: 35px;
+    right: 0;
+    width: 55px;
+  }
+
+  100% {
+    top: 38px;
+    right: 8px;
+    width: 47px;
+  }
+}
+
+@keyframes rotatePlaceholder {
+  0% {
+    transform: rotate(-45deg);
+  }
+
+  5% {
+    transform: rotate(-45deg);
+  }
+
+  12% {
+    transform: rotate(-405deg);
+  }
+
+  100% {
+    transform: rotate(-405deg);
+  }
+}
+
+.swal2-animate-success-line-tip {
+  animation: animate-success-tip .75s;
+}
+
+.swal2-animate-success-line-long {
+  animation: animate-success-long .75s;
+}
+
+.swal2-success {
+  &.swal2-animate-success-icon {
+    .swal2-success-circular-line-right {
+      animation: rotatePlaceholder 4.25s ease-in;
+    }
+  }
+}
+
+
+// Error icon animation
+
+@keyframes animate-error-icon {
+  0% {
+    transform: rotateX(100deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+.swal2-animate-error-icon {
+  animation: animate-error-icon .5s;
+}
+
+@keyframes animate-x-mark {
+  0% {
+    transform: scale(.4);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(.4);
+    opacity: 0;
+  }
+
+  80% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.swal2-animate-x-mark {
+  animation: animate-x-mark .5s;
+}
+
+@keyframes animate-y-mark {
+  0% {
+    transform: scale(.1);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(.1);
+    opacity: 0;
+  }
+
+  80% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.swal2-animate-y-mark {
+  font: {
+    family: 'Verdana';
+    size: 60px;
+  }
+  animation: animate-y-mark .5s;
+}
+
+@keyframes rotate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

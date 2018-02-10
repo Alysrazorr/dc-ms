@@ -1,9 +1,9 @@
-const __idKey = 'p_code'
-const __pIdKey = 'p_parentCode'
-const __nameKey = 'p_name'
+const _idKey = 'p_code'
+const _pIdKey = 'p_parentCode'
+const _nameKey = 'p_name'
 
 export default {
-  a2t: function(array, idKey = __idKey, pIdKey = __pIdKey, nameKey = __nameKey) {
+  a2t: function(array, idKey = _idKey, pIdKey = _pIdKey, nameKey = _nameKey) {
     array.sort(function(a, b) {
       return a[idKey] - b[idKey]
     })

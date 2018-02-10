@@ -11,9 +11,9 @@ button.aface {
   line-height: 40px;
   padding: 0 20px;
   border-radius: 3px;
-
-  color: $color-3;
-  background-color: lighten($color-sea, 10%);
+  color: $color-f;
+  @include transition($transition-speed);
+  @include buttonStyle($color-steel);
 
   &.sea { @include buttonStyle($color-sea) }
   &.grass { @include buttonStyle($color-grass) }
