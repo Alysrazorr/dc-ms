@@ -7,13 +7,14 @@
           :options="pageSizeDropbox"/>
         <span class="">条/页</span>
         <textbox
+          ref="searchBox"
           class="search-box"
           :label="'关键字搜索'"
           :onPressEnter="getRemoteData"/>
       </div>
       <table class="datatable">
         <thead>
-          <th v-if="hasRanking" class="ranking">#</th>
+          <th v-if="hasRanking" class="ranking none-select">#</th>
           <th v-if="hasCheckbox" class="checkbox">
             <checkbox
               ref="checkAll"
@@ -33,10 +34,10 @@
           <tr
             v-if="rows" v-for="(row, index) in rows" :key="row[idKey]">
             <td
-              class="ranking"
+              class="ranking none-select"
               v-if="hasRanking">{{getRanking(index)}}</td>
             <td
-              class="checkbox"
+              class="checkbox none-select"
               v-if="hasCheckbox">
               <checkbox
                 ref="checkboxes"
@@ -48,21 +49,22 @@
         </tbody>
         <tfoot>
           <tr>
-            <td v-if="hasRanking" class="ranking"></td>
-            <td v-if="hasCheckbox" class="checkbox"></td>
+            <td v-if="hasRanking" class="ranking none-select"></td>
+            <td v-if="hasCheckbox" class="checkbox none-select"></td>
             <td v-for="column of columns" :key="column.key">{{column.title}}</td>
           </tr>
         </tfoot>
       </table>
       <div class="pagination">
-        <div class="infos">当前第&nbsp;1&nbsp;至&nbsp;100&nbsp;条，共&nbsp;1500&nbsp;条</div>
+        <div class="infos">当前第&nbsp;{{currForm}}&nbsp;至&nbsp;{{currTo}}&nbsp;条，共&nbsp;{{totalRecords}}&nbsp;条</div>
         <div class="pages">
           <i class="material-icons none-select">first_page</i>
           <i class="material-icons none-select">chevron_left</i>
-          <i class="page none-select active">1</i>
-          <i class="page none-select">2</i>
-          <i class="page none-select">3</i>
-          <i class="page none-select">4</i>
+          <i
+            class="page none-select"
+            v-for="p in pagination.totalPages" :key="p"
+            :class="[{active: pagination.currPage === p}]"
+          >{{p}}</i>
           <i class="material-icons none-select">chevron_right</i>
           <i class="material-icons none-select">last_page</i>
         </div>
@@ -112,7 +114,7 @@ export default {
   data: function() {
     return {
       isAllChecked: false,
-      sorts: [],
+      sorts: {},
       rows: [],
       querys: {},
       pagination: {
@@ -123,6 +125,23 @@ export default {
       }
     }
   },
+  computed: {
+    requestUrlWithPagination: function() {
+      return this.url + '?currPage=' + this.pagination.currPage + '&pageSize=' + this.pagination.pageSize
+    },
+    currForm: function() {
+      return (this.pagination.currPage - 1) * this.pagination.pageSize + 1
+    },
+    currTo: function() {
+      return this.pagination.currPage * this.pagination.pageSize
+    },
+    totalPages: function() {
+      return this.pagination.totalPages
+    },
+    totalRecords: function() {
+      return this.pagination.totalRecords
+    }
+  },
   methods: {
     getRemoteData: function() {
       var _vm = this
@@ -130,35 +149,38 @@ export default {
       if (typeof url === 'undefined') {
         return
       }
-      console.log(_vm.sorts)
-      _vm.$http.post(url, {
+      _vm.$http.post(_vm.requestUrlWithPagination, {
         sorts: _vm.sorts,
-        pagination: _vm.pagination,
-        querys: _vm.querys
+        querys: _vm.$refs.searchBox.getValue()
       }).then((resp) => {
         _vm.rows = resp.data.data
-        console.log(resp)
+        _vm.pagination = resp.data.pagination
+        console.log(_vm.rows)
+        console.log(_vm.pagination)
       })
     },
-    setSorter: function(title) {
-      if (typeof this.sorts[title] === 'undefined') {
-        this.$set(this.sorts, title, 'asc')
+    setSorter: function(key) {
+      if (typeof this.sorts[key] === 'undefined') {
+        this.$set(this.sorts, key, 'asc')
+        this.getRemoteData()
         return
       }
-      if (this.sorts[title] === 'asc') {
-        this.sorts[title] = 'desc'
+      if (this.sorts[key] === 'asc') {
+        this.sorts[key] = 'desc'
+        this.getRemoteData()
         return
       }
-      if (this.sorts[title] === 'desc') {
-        this.sorts[title] = undefined
+      if (this.sorts[key] === 'desc') {
+        this.sorts[key] = undefined
+        this.getRemoteData()
         return
       }
     },
-    getSorter: function(title) {
-      return this.sorts[title] ? this.sorts[title] === 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' : null
+    getSorter: function(key) {
+      return this.sorts[key] ? this.sorts[key] === 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' : null
     },
     getRanking: function(index) {
-      return index + 1
+      return this.currForm + index
     },
     getCheckedRowIds: function() {
       var ids = []

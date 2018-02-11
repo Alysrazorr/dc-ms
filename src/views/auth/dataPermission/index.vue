@@ -64,9 +64,9 @@ export default {
         hasRanking: true,
         url: '/auth/urlPermission/getList',
         columns: [
-          { title: 'ID', key: 'p_id', width: '30%' },
-          { title: '名称', key: 'p_name', width: '20%' },
-          { title: 'col3', key: 'col3', width: '50%' }
+          { title: 'ID', key: 'p_id', width: '30%', align: 'left' },
+          { title: '名称', key: 'p_name', width: '20%', align: 'left' },
+          { title: 'url', key: 'url', width: '50%', align: 'left' }
         ]
       }
     }
