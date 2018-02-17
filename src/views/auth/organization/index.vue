@@ -1,10 +1,5 @@
 <template>
   <div>
-    <button class="aface">加载</button>
-    <br />
-    <br />
-    <br />
-    <br />
   </div>
 </template>
 

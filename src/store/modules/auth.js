@@ -5,7 +5,7 @@ const state = {
 
 const mutations = {
   setToken: (state, token) => {
-    window.sessionStorage.token = token
+    window.sessionStorage.setItem('token', token)
     state.token = token
   },
   clearToken: (state) => {
@@ -13,7 +13,7 @@ const mutations = {
     state.token = null
   },
   setMenus: (state, menus) => {
-    window.sessionStorage.menus = menus
+    window.sessionStorage.setItem('menus', menus)
     state.menus = menus
   },
   clearMenus: () => {
@@ -26,13 +26,10 @@ const actions = {}
 
 const getters = {}
 
-const modules = {}
-
 export default {
   namespaced: true,
   state,
   mutations,
   actions,
-  getters,
-  modules
+  getters
 }

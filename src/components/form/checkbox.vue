@@ -31,11 +31,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$checkbox-size: 16px;
 div.checkbox-container {
   position: relative;
-  width: 16px !important;
-  height: 16px !important;
-  line-height: 16px !important;
+  width: $checkbox-size !important;
+  height: $checkbox-size !important;
+  line-height: $checkbox-size !important;
   border-radius: 3px;
   border: solid 1px $color-a;
   cursor: pointer;
@@ -43,7 +44,7 @@ div.checkbox-container {
   font-size: 0;
 
   &>i {
-    font-size: 14px;
+    font-size: $checkbox-size - 2px;
   }
 
   &.active {

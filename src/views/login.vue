@@ -9,7 +9,7 @@
         </td>
         <td id="form">
           <div id="login-form-container">
-            <span class="section">系统登录</span>
+            <span class="section title">系统登录</span>
             <br />
             <span class="section input">
               <textbox ref="ac" :label="'账号'" :onPressEnter="login"/>
@@ -35,7 +35,7 @@ export default {
           ac: _vm.$refs.ac.getValue(),
           pw: _vm.$refs.pw.getValue()
         }
-      }).then(function(resp) {
+      }).then(resp => {
         _vm.$store.commit('auth/setToken', resp.data.data)
         _vm.$router.push('/dashboard')
       })
@@ -50,7 +50,6 @@ $section-size: 50px;
 table {
   width: 100%;
   height: 100%;
-  // background: linear-gradient(to bottom right, darken($color-sea, 35%), darken($color-sea, 45%));
 }
 td#logo {
   width: 55%;
@@ -67,7 +66,7 @@ td#form {
 }
 div#login-form-container {
   width: 400px;
-  border-left: solid 2px lighten($color-sea, 10%);
+  border-left: solid 2px lighten($color-steel, 10%);
   padding: 60px 20px;
   padding-bottom: 100px;
 
@@ -78,7 +77,9 @@ div#login-form-container {
       size: 40px;
       family: 'simhei';
     }
-    text-shadow: 2px 2px $color-0;
+    &.title {
+      text-shadow: 2px 2px $color-0;
+    }
   }
 }
 </style>

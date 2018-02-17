@@ -1,284 +1,259 @@
 const state = {
-  activeMenuTabId: 'menu1',
-  activeMenuItemId: 'menu11',
+  isDrawerActive: false,
+  activeMenuId: null,
+  activeItemId: null,
+  activeItemTitle: '数据中心',
   menus: [
     {
+      id: 'menu_0',
       name: '平台运行监控',
-      id: 'menu1',
       icon: 'desktop_windows',
       children: [
         {
+          id: 'menu_0_0',
           name: '数据监控大屏',
-          id: 'menu11',
           icon: 'tv',
-          url: '/monitor/report',
-          desc: '平台整体运行状况'
+          url: '/monitor/bigScreen'
         },
         {
+          id: 'menu_0_1',
           name: '交换节点监控',
-          id: 'menu12',
           icon: 'bubble_chart',
-          url: '/monitor/exchangeNode',
-          desc: ''
+          url: '/monitor/exchangeNode'
         },
         {
+          id: 'menu_0_2',
           name: '资源入库监控',
-          id: 'menu13',
           icon: 'cloud_upload',
-          url: '/monitor/subjectStore',
-          desc: ''
+          url: '/monitor/dataStore'
         },
         {
+          id: 'menu_0_3',
           name: '资源共享监控',
-          id: 'menu14',
           icon: 'cloud_download',
-          url: '/monitor/subjectShare',
-          desc: ''
+          url: '/monitor/dataShare'
         },
         {
+          id: 'menu_0_4',
           name: '数据任务监控',
-          id: 'menu15',
           icon: 'assignment',
-          url: '/monitor/dataTask',
-          desc: ''
+          url: '/monitor/dataTask'
         }
       ]
     },
     {
+      id: 'menu_1',
       name: '交换节点配置',
-      id: 'menu2',
       icon: 'settings_input_composite',
       children: [
         {
+          id: 'menu_1_0',
           name: '接入前置机节点',
-          id: 'menu21',
           icon: 'storage',
-          url: '/exchangeNode/fepPull',
-          desc: ''
+          url: '/exchangeNode/fepPull'
         },
         {
+          id: 'menu_1_1',
           name: '接入接口节点',
-          id: 'menu22',
           icon: 'cloud_upload',
-          url: '/exchangeNode/apiPull',
-          desc: ''
+          url: '/exchangeNode/apiPull'
         },
         {
+          id: 'menu_1_2',
           name: '推送前置机节点',
-          id: 'menu23',
           icon: 'storage',
-          url: '/exchangeNode/fepPush',
-          desc: ''
+          url: '/exchangeNode/fepPush'
         },
         {
+          id: 'menu_1_3',
           name: '推送接口节点',
-          id: 'menu24',
           icon: 'cloud_download',
-          url: '/exchangeNode/apiPush',
-          desc: ''
+          url: '/exchangeNode/apiPush'
         }
       ]
     },
     {
+      id: 'menu_2',
       name: '数据处理任务',
-      id: 'menu3',
       icon: 'apps',
       children: [
         {
+          id: 'menu_2_0',
           name: '数据接入任务',
-          id: 'menu31',
           icon: 'cloud_upload',
-          url: '/dataTask/pull',
-          desc: '将数据从前置机读取到交换库'
+          url: '/dataTask/pull'
         },
         {
+          id: 'menu_2_1',
           name: '数据检查任务',
-          id: 'menu32',
           icon: 'star_half',
-          url: '/dataTask/check',
-          desc: '检查数据质量'
+          url: '/dataTask/check'
         },
         {
+          id: 'menu_2_2',
           name: '数据校验任务',
-          id: 'menu33',
           icon: 'content_copy',
-          url: '/dataTask/verify',
-          desc: '校验数据质量'
+          url: '/dataTask/verify'
         },
         {
+          id: 'menu_2_3',
           name: '数据清洗任务',
-          id: 'menu34',
           icon: 'find_replace',
-          url: '/dataTask/etl',
-          desc: '清洗数据'
+          url: '/dataTask/etl'
         },
         {
+          id: 'menu_2_4',
           name: '数据转换任务',
-          id: 'menu35',
           icon: 'translate',
-          url: '/dataTask/transform',
-          desc: '对数据进行转换'
+          url: '/dataTask/transform'
         },
         {
+          id: 'menu_2_5',
           name: '数据推送任务',
-          id: 'menu36',
           icon: 'cloud_download',
-          url: '/dataTask/push',
-          desc: '推送数据'
+          url: '/dataTask/push'
         },
         {
+          id: 'menu_2_6',
           name: '任务标签管理',
-          id: 'menu37',
           icon: 'local_offer',
-          url: '/dataTask/tag',
-          desc: '管理任务标签'
+          url: '/dataTask/tag'
         }
       ]
     },
     {
+      id: 'menu_3',
       name: '数据质量管理',
-      id: 'menu4',
       icon: 'star_half',
       children: [
         {
+          id: 'menu_3_0',
           name: '数据质量监测',
-          id: 'menu41',
           icon: 'star_half',
-          url: '/dataQuality/monitor',
-          desc: '监测数据质量情况'
+          url: '/dataQuality/monitor'
         },
         {
+          id: 'menu_3_1',
           name: '数据质量报告',
-          id: 'menu42',
           icon: 'picture_as_pdf',
-          url: '/dataQuality/report',
-          desc: '监测数据质量情况导出报告'
+          url: '/dataQuality/report'
         }
       ]
     },
     {
+      id: 'menu_4',
       name: '数据资源管理',
-      id: 'menu5',
       icon: 'layers',
       children: [
         {
+          id: 'menu_4_0',
           name: '交换库目录管理',
-          id: 'menu51',
           icon: 'folder',
-          url: '/dataDirectory/exchange',
-          desc: ''
+          url: '/dataDirectory/exchange'
         },
         {
+          id: 'menu_4_1',
           name: '共享库目录管理',
-          id: 'menu52',
           icon: 'folder_shared',
-          url: '/dataDirectory/share',
-          desc: ''
+          url: '/dataDirectory/share'
         },
         {
+          id: 'menu_4_2',
           name: '交换库主题管理',
-          id: 'menu53',
           icon: 'cloud_circle',
-          url: '/dataSubject/exchange',
-          desc: ''
+          url: '/dataSubject/exchange'
         },
         {
+          id: 'menu_4_3',
           name: '共享库主题管理',
-          id: 'menu54',
           icon: 'cloud_circle',
-          url: '/dataSubject/share',
-          desc: ''
+          url: '/dataSubject/share'
         },
         {
+          id: 'menu_4_4',
           name: '主题生命周期管理',
-          id: 'menu55',
           icon: 'data_usage',
-          url: '/dataSubject/lifeCycle',
-          desc: ''
+          url: '/dataSubject/lifeCycle'
         }
       ]
     },
     {
+      id: 'menu_5',
       name: '数据状况统计',
-      id: 'menu6',
       icon: 'trending_up',
       children: [
         {
+          id: 'menu_5_0',
           name: '交换库主题统计',
-          id: 'menu61',
           icon: 'show_chart',
-          url: '/statistics/dataSubject/exchange',
-          desc: ''
+          url: '/statistics/dataSubject/exchange'
         },
         {
+          id: 'menu_5_1',
           name: '共享库主题统计',
-          id: 'menu62',
           icon: 'show_chart',
-          url: '/statistics/dataSubject/share',
-          desc: ''
+          url: '/statistics/dataSubject/share'
         },
         {
+          id: 'menu_5_2',
           name: '数据入库统计',
-          id: 'menu63',
           icon: 'show_chart',
-          url: '/statistics/store',
-          desc: ''
+          url: '/statistics/store'
         },
         {
+          id: 'menu_5_3',
           name: '数据共享统计',
-          id: 'menu64',
           icon: 'show_chart',
-          url: '/statistics/share',
-          desc: ''
+          url: '/statistics/share'
         }
       ]
     },
     {
+      id: 'menu_6',
       name: '平台运行维护',
-      id: 'menu7',
       icon: 'settings',
       children: [
         {
+          id: 'menu_6_0',
           name: '组织机构管理',
-          id: 'menu71',
           icon: 'domain',
-          url: '/auth/organization',
-          desc: ''
+          url: '/auth/organization'
         },
         {
+          id: 'menu_6_1',
           name: '用户管理',
-          id: 'menu72',
           icon: 'account_circle',
-          url: '/auth/user',
-          desc: ''
+          url: '/auth/user'
         },
         {
+          id: 'menu_6_2',
           name: '角色管理',
-          id: 'menu73',
           icon: 'account_box',
-          url: '/auth/role',
-          desc: ''
+          url: '/auth/role'
         },
         {
+          id: 'menu_6_3',
           name: '系统权限管理',
-          id: 'menu74',
           icon: 'extension',
-          url: '/auth/urlPermission',
-          desc: ''
+          url: '/auth/urlPermission'
         },
         {
+          id: 'menu_6_4',
           name: '数据权限管理',
-          id: 'menu75',
           icon: 'perm_data_setting',
-          url: '/auth/dataPermission',
-          desc: ''
+          url: '/auth/dataPermission'
         },
         {
+          id: 'menu_6_5',
+          name: '数据字典管理',
+          icon: 'g_translate',
+          url: '/platform/dictionary'
+        },
+        {
+          id: 'menu_6_6',
           name: '运行维护管理',
-          id: 'menu76',
           icon: 'slow_motion_video',
-          url: '/platform/maintaince',
-          desc: ''
+          url: '/platform/maintaince'
         }
       ]
     }
@@ -286,17 +261,33 @@ const state = {
 }
 
 const mutations = {
-  activeMenuTab: function(state, id) {
-    state.activeMenuTabId = id
+  toggleDrawer: state => {
+    state.isDrawerActive = !state.isDrawerActive
+    window.sessionStorage.setItem('isDrawerActive', state.isDrawerActive)
   },
-  activeMenuItem: function(state, id) {
-    state.activeMenuItemId = id
+  setIsDrawerActive: (state, is) => {
+    state.isDrawerActive = is
+  },
+  activeMenu: (state, id) => {
+    state.activeMenuId = id
+    window.sessionStorage.setItem('activeMenuId', state.activeMenuId)
+  },
+  activeItem: (state, payload) => {
+    state.activeItemId = payload.id
+    state.activeItemTitle = payload.title
+    window.sessionStorage.setItem('activeItemId', state.activeItemId)
+    window.sessionStorage.setItem('activeItemTitle', state.activeItemTitle)
   }
 }
 
 const actions = {}
 
-const getters = {}
+const getters = {
+  isDrawerActive: state => state.isDrawerActive,
+  activeMenuId: state => state.activeMenuId,
+  activeItemTitle: state => state.activeItemTitle,
+  activeItemId: state => state.activeItemId
+}
 
 export default {
   namespaced: true,

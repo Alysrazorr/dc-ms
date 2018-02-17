@@ -22,11 +22,11 @@ import warningBox from '@/components/alert/warningBox'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.prototype.$api = api
 Vue.prototype.$a2t = collectionUtils.a2t
 Vue.prototype.$extendObj = objectUtils.extend
 Vue.prototype.$isPlainObj = objectUtils.isPlainObject
 Vue.prototype.$isEmptyObj = objectUtils.isEmptyObject
-Vue.prototype.$api = api
 
 Vue.component('tree', tree)
 Vue.component('datagrid', datagrid)
@@ -47,5 +47,5 @@ new Vue({
   store,
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App />'
 })

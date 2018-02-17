@@ -1,11 +1,10 @@
 <template>
-<div id="bigScreen">
-</div>
+  <div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'bigScreen',
   methods: {
   }
 }

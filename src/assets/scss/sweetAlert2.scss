@@ -1,12 +1,8 @@
-$swal2-box-shadow:#d9d9d9 !default;
 $swal2-success: #a5dc86 !default;
 $swal2-error:#f27474 !default;
 $swal2-warning:#f8bb86 !default;
 $swal2-info:#3fc3ee !default;
 $swal2-confirm:#87adbd !default;
-
-$swal2-font: inherit !default;
-$swal2-font-size: 1rem !default;
 
 .swal2-icon {
     position: relative;
@@ -54,7 +50,6 @@ $swal2-font-size: 1rem !default;
     &.swal2-info,
     &.swal2-confirm {
       margin: .333333em auto .5em;
-      font-family: $swal2-font;
       font-size: 3.75em;
     }
   

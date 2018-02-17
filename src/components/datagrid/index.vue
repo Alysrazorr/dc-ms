@@ -24,10 +24,10 @@
           <th 
             class="column none-select"
             v-for="column of columns" :key="column.key"
-            :style="{width: column.width}"
-            @click="setSorter(column.key)">
+            :style="[{width: column.width}]"
+            @click="setSorts(column.key)">
             <span>{{column.title}}</span>
-            <i class="material-icons sort">{{getSorter(column.key)}}</i>
+            <i class="material-icons sort">{{getSorts(column.key)}}</i>
           </th>
         </thead>
         <tbody>
@@ -56,17 +56,26 @@
         </tfoot>
       </table>
       <div class="pagination">
-        <div class="infos">当前第&nbsp;{{currForm}}&nbsp;至&nbsp;{{currTo}}&nbsp;条，共&nbsp;{{totalRecords}}&nbsp;条</div>
+        <div class="infos">当前第&nbsp;{{fromIndex}}&nbsp;至&nbsp;{{toIndex}}&nbsp;条，共&nbsp;{{recordCount}}&nbsp;条记录</div>
         <div class="pages">
-          <i class="material-icons none-select">first_page</i>
-          <i class="material-icons none-select">chevron_left</i>
+          <i class="material-icons none-select"
+            @click="currPage = 1"
+          >first_page</i>
+          <i class="material-icons none-select"
+            @click="currPage = Math.max(currPage - 1, 1)"
+          >chevron_left</i>
           <i
             class="page none-select"
-            v-for="p in pagination.totalPages" :key="p"
-            :class="[{active: pagination.currPage === p}]"
-          >{{p}}</i>
-          <i class="material-icons none-select">chevron_right</i>
-          <i class="material-icons none-select">last_page</i>
+            v-for="page in pages" :key="page"
+            :class="[{active: currPage === page}]"
+            @click="currPage = page"
+          >{{page}}</i>
+          <i class="material-icons none-select"
+            @click="currPage = Math.min(currPage + 1, pageCount)"
+          >chevron_right</i>
+          <i class="material-icons none-select"
+            @click="currPage = pageCount"
+          >last_page</i>
         </div>
       </div>
     </div>
@@ -117,49 +126,56 @@ export default {
       sorts: {},
       rows: [],
       querys: {},
-      pagination: {
-        currPage: 1,
-        pageSize: 10,
-        totalPages: null,
-        totalRecords: null
-      }
+      currPage: 1,
+      pageSize: 10,
+      pageCount: 1,
+      recordCount: 1
+    }
+  },
+  watch: {
+    currPage: function(v) {
+      this.getRemoteData()
     }
   },
   computed: {
     requestUrlWithPagination: function() {
-      return this.url + '?currPage=' + this.pagination.currPage + '&pageSize=' + this.pagination.pageSize
+      return this.url + '?currPage=' + this.currPage + '&pageSize=' + this.pageSize
     },
-    currForm: function() {
-      return (this.pagination.currPage - 1) * this.pagination.pageSize + 1
+    fromIndex: function() {
+      return (this.currPage - 1) * this.pageSize + 1
     },
-    currTo: function() {
-      return this.pagination.currPage * this.pagination.pageSize
+    toIndex: function() {
+      var _vm = this
+      return Math.min(_vm.currPage * _vm.pageSize, _vm.recordCount)
     },
-    totalPages: function() {
-      return this.pagination.totalPages
-    },
-    totalRecords: function() {
-      return this.pagination.totalRecords
+    pages: function() {
+      var arr = []
+      var max = Math.min(this.currPage + 2, this.pageCount)
+      for (var i = this.currPage - 2; i <= max; i++) {
+        if (i > 0) {
+          arr.push(i)
+        }
+        if (arr.length === 5) {
+          break
+        }
+      }
+      return arr
     }
   },
   methods: {
     getRemoteData: function() {
       var _vm = this
-      var url = _vm.url
-      if (typeof url === 'undefined') {
-        return
-      }
+      if (!_vm.url) { return }
       _vm.$http.post(_vm.requestUrlWithPagination, {
         sorts: _vm.sorts,
         querys: _vm.$refs.searchBox.getValue()
-      }).then((resp) => {
+      }).then(resp => {
         _vm.rows = resp.data.data
-        _vm.pagination = resp.data.pagination
-        console.log(_vm.rows)
-        console.log(_vm.pagination)
+        _vm.pageCount = resp.data.pagination.totalPages
+        _vm.recordCount = resp.data.pagination.totalRecords
       })
     },
-    setSorter: function(key) {
+    setSorts: function(key) {
       if (typeof this.sorts[key] === 'undefined') {
         this.$set(this.sorts, key, 'asc')
         this.getRemoteData()
@@ -176,11 +192,11 @@ export default {
         return
       }
     },
-    getSorter: function(key) {
+    getSorts: function(key) {
       return this.sorts[key] ? this.sorts[key] === 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' : null
     },
     getRanking: function(index) {
-      return this.currForm + index
+      return this.fromIndex + index
     },
     getCheckedRowIds: function() {
       var ids = []
@@ -220,6 +236,7 @@ export default {
   },
   mounted: function() {
     var _vm = this
+    if (!_vm.url) { return }
     _vm.$nextTick(function() {
       if (_vm.url) {
         _vm.getRemoteData()

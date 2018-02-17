@@ -153,16 +153,6 @@ $font-color: $color-9;
     user-select: none;
 }
 
-*::-webkit-scrollbar {
-    width: 10px;
-    background-color: transparent;
-}
-*::-webkit-scrollbar-thumb {
-    border-radius: 999px;
-    border: solid 1px $color-0;
-    background-color: lighten($color-sea, 10%)
-}
-
 .slide-y-enter-active {
   transition: all .3s ease;
 }
