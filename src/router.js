@@ -31,21 +31,17 @@ if (typeof window.sessionStorage.getItem('isDrawerActive') !== 'undefined') {
 }
 
 const router = new Router({
-  routes: [
-    {
-      path: '/login',
-      component: login
-    },
-    {
-      path: '/dashboard',
-      component: resolve => require(['@/views/dashboard'], resolve),
-      children: getRouters(store.state.dashboard.menus)
-    },
-    {
-      path: '*',
-      component: notFound
-    }
-  ]
+  routes: [{
+    path: '/login',
+    component: login
+  }, {
+    path: '/dashboard',
+    component: resolve => require(['@/views/dashboard'], resolve),
+    children: getRouters(store.state.dashboard.menus)
+  }, {
+    path: '*',
+    component: notFound
+  }]
 })
 
 router.beforeEach((to, from, next) => {
@@ -74,9 +70,7 @@ function getRouters(menus = [], children = []) {
       children.push({
         path: item.url,
         component: resolve => require(['@/views' + item.url], resolve),
-        meta: {
-          title: item.title
-        }
+        meta: { title: item.title }
       })
     })
   })
