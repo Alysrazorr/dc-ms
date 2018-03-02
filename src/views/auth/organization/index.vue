@@ -1,5 +1,6 @@
 <template>
   <div>
+    <af-button class="aface button"/>
   </div>
 </template>
 

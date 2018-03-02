@@ -19,6 +19,8 @@ import infoBox from '@/components/alert/infoBox'
 import successBox from '@/components/alert/successBox'
 import confirmBox from '@/components/alert/confirmBox'
 import warningBox from '@/components/alert/warningBox'
+import ripple from '@/components/ripple'
+import button from '@/components/form/button'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
@@ -40,6 +42,8 @@ Vue.component('infoBox', infoBox)
 Vue.component('successBox', successBox)
 Vue.component('confirmBox', confirmBox)
 Vue.component('warningBox', warningBox)
+Vue.component('af-ripple', ripple)
+Vue.component('af-button', button)
 
 /* eslint-disable */
 new Vue({
